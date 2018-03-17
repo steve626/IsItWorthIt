@@ -31,21 +31,36 @@
 
 	<div class="container">
 		<div class="row">
+
+			<!--Have users input information here-->
 			<div class="card" id="infoinput">
 				<h5 class="card-header">Let us know about your trip!</h5>
   					<div class="card-body">
     					<form>
+							<!--Users enter their location here-->
             				<div>
                 				<label for="location">Your Location</label>
                     			<input type="location" class="form-control" id="location">
             				</div>
 
-
+							<!--Users enter where they're traveling here-->
             				<div>
                 				<label for="Destination">Your Destination</label>
                     			<input type="text" class="form-control" id="desination">
             				</div>
 
+							<!--Users list how many passangers there are-->
+            				<div>
+            					<label for="passangers">How many are traveling?</label>
+            					<form id="passangers">
+            						<div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+  										<input type="number" id="number" value="0" />
+
+  									<div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+            					</form>
+            				</div>
+
+							<!--Users can choose from the options to let us know what best describes their car-->
             				<div class="form-group">
   								<label for="sel1">Let us know what car you have:</label>
   									<select class="form-control" id="sel1">
@@ -69,15 +84,17 @@
 		<div class="col-1">
 		</div>
 
+		<!--This is where users will see their information-->
 		<div class="card" id="infodump">
 				<h5 class="card-header">Find Information On Your Trip</h5>
   				<div class="card-body">
 
+					<!--Let the users compare their results by picking what option they want to see-->
     				<div class="dropdown">
   						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     					Compare your results
   						</button>
-
+					
   					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     					<a class="dropdown-item" href="#">Driving</a>
     					<a class="dropdown-item" href="#">Plane</a>
