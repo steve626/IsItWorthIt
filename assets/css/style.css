@@ -23,10 +23,15 @@ body {
 
 .card {
 	float: left;
-	width: 500px;
+	width: 520px;
 }
 
 #infodump {
-	margin-left: 20px;
-	width: 600px;
+	width: 500px;
 }
+
+#dropdownMenuButton {
+	display: inline-block;
+	margin: 0 auto;
+}
+	
