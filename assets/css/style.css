@@ -1,0 +1,32 @@
+body {
+	background-image: url(../images/background.png);
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: #464646;
+}
+
+#header {
+	background-image: linear-gradient(73deg,#92DC4E,#1DA119);
+	text-align: center;
+	color: #fff;
+	font-family: 'Oswald', sans-serif;
+	letter-spacing: 2px;
+	height: 200px;
+	opacity: 0.8;
+}
+
+#title {
+	margin-top: -25px;
+}
+
+.card {
+	float: left;
+	width: 500px;
+}
+
+#infodump {
+	margin-left: 20px;
+	width: 600px;
+}
