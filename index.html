@@ -20,25 +20,31 @@
 	</div>
 
 
-	<div class="dropdown">
 
-  		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    		Dropdown button
-  		</button>
 
-  		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    		<a class="dropdown-item" href="#">Action</a>
-    		<a class="dropdown-item" href="#">Another action</a>
-    		<a class="dropdown-item" href="#">Something else here</a>
-  		</div>
-	</div>
 
 	<div class="container">
+
+		
 		<div class="row">
-			<div class="card">
-				<h5 class="card-header">Find Information On Your Trip</h5>
+			<div class="card" id="infoinput">
+				<h5 class="card-header">Let us know about your trip!</h5>
   					<div class="card-body">
-    				This is some text within a card body.
+    					<form>
+            				<div>
+                				<label for="location">Your Location</label>
+                    			<input type="location" class="form-control" id="location">
+            				</div>
+
+
+            				<div>
+                				<label for="Destination">Your Destination</label>
+                    			<input type="text" class="form-control" id="desination">
+            				</div>
+                   
+            				<button type="submit" class="btn btn-primary" id="submit">Submit</button>
+        				</form>
+        				
   					</div>
 			</div>
 
@@ -46,9 +52,21 @@
 		</div>
 
 		<div class="card" id="infodump">
-				<h5 class="card-header"></h5>
+				<h5 class="card-header">Find Information On Your Trip</h5>
   				<div class="card-body">
-    			This is some text within a card body.
+
+    				<div class="dropdown">
+  						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    					Compare your results
+  						</button>
+
+  					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    					<a class="dropdown-item" href="#">Driving</a>
+    					<a class="dropdown-item" href="#">Plane</a>
+    					<a class="dropdown-item" href="#">Public Transit</a>
+  					</div>
+					</div>
+
   				</div>
 		</div>
 
