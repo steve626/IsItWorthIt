@@ -20,7 +20,7 @@ function decreaseValue() {
   var origin = "Phoenix";
   var destination = "Los Angeles";
 
-  var queryURL = "http://www.mapquestapi.com/directions/v2/route?key="+APIkey+"&from="+origin+"&to="+destination
+  var queryURL = "https://www.mapquestapi.com/directions/v2/route?key="+APIkey+"&from="+origin+"&to="+destination
      $.ajax({
        url: queryURL,
        method: 'GET',
