@@ -1,4 +1,4 @@
-//some functions for passangers information
+//Bootstrap functions for passangers information
 function increaseValue() {
   var value = parseInt(document.getElementById('number').value, 10);
   value = isNaN(value) ? 0 : value;
@@ -15,7 +15,7 @@ function decreaseValue() {
 }
  
   
-  //Map Quest Key
+  //Map Quest Key (Working, use for Driving)
   var APIkey = 	"Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
   var origin = "Phoenix";
   var destination = "Los Angeles";
@@ -28,14 +28,33 @@ function decreaseValue() {
     //  cache: false,
      }).then(function(response) {
        console.log(response);
-       console.log(response.route.distance);
-       console.log(response.route.formattedTime);
+       console.log("MAP QUEST DISTANCE: "+response.route.distance);
+       console.log("MAP QUEST DRIVING TIME: "+response.route.formattedTime);
        
 
     });
 
 
-    //Flight API
+    //Google Directions API (Use for Transit Info)
+ var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
+ var originD = "Phoenix";
+ var destinationD = "Los Angeles";
+ 
+  var queryURLD = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkeyD+"&origin="+originD+"&destination="+destinationD+"&mode=transit";
+ 
+     $.ajax({
+        url: queryURLD,
+         method: 'GET',
+  //     dataType: 'jsonp',
+   //     cache: false,
+       }).then(function(response) {
+         console.log(response);
+         console.log("GOOGLE TRANSIT DURATION: " + response.routes[0].legs[0].duration.text);
+         console.log("GOOGLE TRANSIT DISTANCE: " + response.routes[0].legs[0].distance.text);
+ 
+      });
+
+    //Flight API (Still Pending)
 
     var queryURL2 = "https://api.flightstats.com/flex/schedules/rest/v1/jsonp/from/PHX/to/LAX/departing/2018/3/30?appId=c5590eb9&appKey=+df8ff1453a113bf7b675d517326983ea";
 
@@ -49,25 +68,11 @@ function decreaseValue() {
       
    });
 
-//Google Directions API
- var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
-var originD = "Phoenix";
-var destinationD = "Los Angeles";
 
- var queryURLD = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkeyD+"&origin="+originD+"&destination="+destinationD+"&mode=transit";
-
-    $.ajax({
-       url: queryURLD,
-        method: 'GET',
- //     dataType: 'jsonp',
-  //     cache: false,
-      }).then(function(response) {
-        console.log(response);
-
-     });
 
   
-     
+//Average Fare = $50 + (Distance * $0.11)
+
 //globals
 var gasPrice = 2.536 //$-gallon from aaa.com
 var hourValue = 25 //$-hour based on median income in usa
