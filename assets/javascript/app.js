@@ -50,32 +50,24 @@ function decreaseValue() {
    });
 
 //Google Directions API
-// var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
-// var origin = "Phoenix";
-//var destination = "Los Angeles";
+ var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
+var originD = "Phoenix";
+var destinationD = "Los Angeles";
 
-//Google Directions URL var queryURL = "http://maps.googleapis.com/maps/api/directions/json?key="+APIkey+"&origin="+origin+"&destination="+destination
+ var queryURLD = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkeyD+"&origin="+originD+"&destination="+destinationD+"&mode=transit";
 
- //Google Places API
-// var APIkey ="AIzaSyAP_J4JEw5Ro3YrVdHj-85odaS76v7ngjg";
+    $.ajax({
+       url: queryURLD,
+        method: 'GET',
+ //     dataType: 'jsonp',
+  //     cache: false,
+      }).then(function(response) {
+        console.log(response);
 
-//  var queryURL = "http://maps.googleapis.com/maps/api/directions/jsonp?key="+APIkeyD+"&origin="+origin+"&destination="+destination
-//     $.ajax({
-//        url: queryURL,
-//        method: 'GET',
-//       dataType: 'jsonp',
-//       cache: false,
-//      }).then(function(response) {
-//        console.log(response);
+     });
 
-//     });
-
-  //Google Maps API
-  // var APIkey ="AIzaSyCB_NNmYoFVRc6qz7_vp6IJ-9-GIkEvy5U";
-
-// Is It Worth It
-//compare driving vs flying to get from point A to point B
-
+  
+     
 //globals
 var gasPrice = 2.536 //$-gallon from aaa.com
 var hourValue = 25 //$-hour based on median income in usa
