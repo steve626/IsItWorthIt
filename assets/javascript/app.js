@@ -1,10 +1,10 @@
-<<<<<<< HEAD
+
 
 
 //some functions for passangers information 
-=======
+
 //Bootstrap functions for passangers information
->>>>>>> 6cb2697b1b2554e207f75e597ae62e9318970ec0
+
 function increaseValue() {
   var value = parseInt(document.getElementById('number').value, 10);
   value = isNaN(value) ? 0 : value;
@@ -19,7 +19,7 @@ function decreaseValue() {
   value--;
   document.getElementById('number').value = value;
 }
-<<<<<<< HEAD
+
 
 //Google Directions API
 var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
@@ -35,7 +35,7 @@ var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIke
       console.log(response);
       console.log(response)
     });
-=======
+
  
   
   //Map Quest Key (Working, use for Driving)
@@ -158,5 +158,5 @@ var flyCarbon = 0.25 //lbs/flight mile
 //for flight:
     // trip cost = flight cost
     //time cost = (flight time + 210 minutes of incidental travel time ) * hourValue
->>>>>>> 6cb2697b1b2554e207f75e597ae62e9318970ec0
+
 
