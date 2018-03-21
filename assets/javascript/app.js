@@ -24,7 +24,7 @@ $("#submit").on("click", function() {
 //Google Directions API
 var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
 var origin = $("#location").val().trim();
-var destination = $("#desination").val().trim();
+var destination = $("#destination").val().trim();
 
 var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkey+"&origin="+origin+"&destination="+destination
 
@@ -41,7 +41,7 @@ var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIke
   //Map Quest Key (Working, use for Driving)
   var APIkey =  "Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
   var origin = $("#location").val().trim();
-  var destination = $("#desination").val().trim();
+  var destination = $("#destination").val().trim();
 
   var queryURL = "https://www.mapquestapi.com/directions/v2/route?key="+APIkey+"&from="+origin+"&to="+destination
      $.ajax({
@@ -54,14 +54,15 @@ var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIke
        console.log("MAP QUEST DISTANCE: "+response.route.distance);
        console.log("MAP QUEST DRIVING TIME: "+response.route.formattedTime);
        
-
+       $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + response.route.distance + " miles ");
+       $("#drivetime").append("Currently," + " drive time is: " + response.route.formattedTime);
     });
 
 
     //Google Directions API (Use for Transit Info)
  var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
  var originD = $("#location").val().trim();
- var destinationD = $("#desination").val().trim();
+ var destinationD = $("#destination").val().trim();
  
   var queryURLD = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkeyD+"&origin="+originD+"&destination="+destinationD+"&mode=transit";
  

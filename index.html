@@ -46,16 +46,16 @@
 							<!--Users enter where they're traveling here-->
             				<div>
                 				<label for="Destination">Your Destination</label>
-                    			<input type="text" class="form-control" id="desination">
+                    			<input type="text" class="form-control" id="destination">
             				</div>
 
 							<!--Users list how many passangers there are-->
-            				<div id="passangerinfo">
+            				<div id="passengerinfo">
 
             					<div>
 
-            						<label for="passangers">How many are traveling?</label>
-            							<form id="passangers">
+            						<label for="passengers">How many are traveling?</label>
+            							<form id="passengers">
 
             								<div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
   											<input type="number" id="number" value="0" />
@@ -93,10 +93,34 @@
 			<div class="card" id="infodump">
 				<h5 class="card-header">Find Information On Your Trip</h5>
   				<div class="card-body">
+              <h5 id="infoheader">Based on your info:</h5>
 
-					
-          <p id="infoheader">Based on your info:</p>
-  				</div>
+                <p id="distanceInfo"></p>
+
+                <div id="travelInfo">
+                  <div id="drivingInfo">
+                    <h5>If you drive: </h5>
+                    <p id="drivetime"></p>
+                  </div>
+
+                  <div id="flyingInfo">
+                    <h5>If you fly: </h5>
+                  </div>
+
+                  <div id="transitInfo">
+                    <h5>If you transit: </h5>
+                  </div>
+  				      </div>
+
+                <div id="keys">
+                  <i class="fas fa-leaf" id="leafkey"></i>
+                  <i class="fas fa-car" id="carkey"></i>
+                  <i class="fas fa-plane" id="planekey"></i>
+                  <i class="fas fa-train" id="trainkey"></i>
+                  <i class="fas fa-clock" id="timekey"></i>
+                </div>
+
+          </div>
 		</div>
 		</div>
 	</div>

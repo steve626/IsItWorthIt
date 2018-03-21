@@ -104,3 +104,18 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+#travelInfo {
+  margin-top: 20px;
+}
+
+#leafkey {
+  color: green;
+}
+
+#carkey, #planekey, #trainkey, #timekey {
+  color: #377bb5;
+}
+
+
+
