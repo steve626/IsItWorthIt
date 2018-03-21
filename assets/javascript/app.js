@@ -1,5 +1,4 @@
 
-
 //Bootstrap functions for passangers information
 
 function increaseValue() {
@@ -21,31 +20,41 @@ function decreaseValue() {
 //Submit button should input data
 
 $("#submit").on("click", function() {
-//Google Directions API
-var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
+
+//Pulling Form Information info Varables
 var origin = $("#location").val().trim();
-var destination = $("#destination").val().trim();
+var destination = $("#destination").val().trim(); 
+var passengers = $("#number"); 
+var carType = $("#sel1").val().trim();
 
-var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkey+"&origin="+origin+"&destination="+destination
+console.log(origin);
+console.log(destination);
+console.log(passengers[0].valueAsNumber);
+console.log(carType);
 
-    $.ajax({
-      url: queryURL,
-      method: 'GET'
-    }).then(function(response) {
-      console.log(response);
-      console.log(response)
-    });
+//Google Directions API
+//var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
+//var origin = $("#location").val().trim();
+//var destination = $("#destination").val().trim();
+
+//var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkey+"&origin="+origin+"&destination="+destination
+
+    //$.ajax({
+      //url: queryURL,
+      //method: 'GET'
+    //}).then(function(response) {
+      //console.log(response);
+      //console.log(response)
+    //});
 
  
   
   //Map Quest Key (Working, use for Driving)
-  var APIkey =  "Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
-  var origin = $("#location").val().trim();
-  var destination = $("#destination").val().trim();
-
-  var queryURL = "https://www.mapquestapi.com/directions/v2/route?key="+APIkey+"&from="+origin+"&to="+destination
+  var APIkeyMQ =  "Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
+  
+  var queryURLMQ = "https://www.mapquestapi.com/directions/v2/route?key="+APIkeyMQ+"&from="+origin+"&to="+destination
      $.ajax({
-       url: queryURL,
+       url: queryURLMQ,
        method: 'GET',
     //  dataType: 'jsonp',
     //  cache: false,
