@@ -1,8 +1,5 @@
 
 
-
-//some functions for passangers information 
-
 //Bootstrap functions for passangers information
 
 function increaseValue() {
@@ -20,11 +17,11 @@ function decreaseValue() {
   document.getElementById('number').value = value;
 }
 
-
+$("#submit").on("click", function() {
 //Google Directions API
 var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
-var origin = "Phoenix"
-var destination = "Los Angeles"
+var origin = $("#location").val().trim();
+var destination = $("#desination").val().trim();
 
 var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkey+"&origin="+origin+"&destination="+destination
 
@@ -39,9 +36,9 @@ var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIke
  
   
   //Map Quest Key (Working, use for Driving)
-  var APIkey = 	"Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
-  var origin = "Phoenix";
-  var destination = "Los Angeles";
+  var APIkey =  "Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
+  var origin = $("#location").val().trim();
+  var destination = $("#desination").val().trim();
 
   var queryURL = "https://www.mapquestapi.com/directions/v2/route?key="+APIkey+"&from="+origin+"&to="+destination
      $.ajax({
@@ -60,8 +57,8 @@ var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIke
 
     //Google Directions API (Use for Transit Info)
  var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
- var originD = "Phoenix";
- var destinationD = "Los Angeles";
+ var originD = $("#location").val().trim();
+ var destinationD = $("#desination").val().trim();
  
   var queryURLD = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkeyD+"&origin="+originD+"&destination="+destinationD+"&mode=transit";
  
@@ -158,5 +155,6 @@ var flyCarbon = 0.25 //lbs/flight mile
 //for flight:
     // trip cost = flight cost
     //time cost = (flight time + 210 minutes of incidental travel time ) * hourValue
+});
 
 
