@@ -17,6 +17,9 @@ function decreaseValue() {
   document.getElementById('number').value = value;
 }
 
+
+//Submit button should input data
+
 $("#submit").on("click", function() {
 //Google Directions API
 var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
