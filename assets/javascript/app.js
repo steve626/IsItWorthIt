@@ -3,14 +3,14 @@ var gasPrice = 2.536 //$-gallon from aaa.com
 var hourValue = 25 //$-hour based on median income in usa
 
 var mpgObj = {    
-    "Compact": 33,
-    "Mid-Size": 29,
-    "FullSize": 26,
-    "Small SUV": 25,
-    "Large SUV": 21,
-    "Minivan": 22,
-    "Pick-Up": 19,
-    "Electric": 60
+    "Compact": 60,
+    "Mid-sized": 44,
+    "Full-sized":37,
+    "Small SUV": 34,
+    "Large SUV": 29,
+    "Minivan": 31,
+    "Pick-Up": 26,
+    "Electric": 33
 };
 // var electricMpg = 83
 // var compactMpg = 60
@@ -114,8 +114,6 @@ console.log(carType);
     });
 
 
-  var mapQuestDist = response.route.formattedTime;
-  console.log(mapQuestDist);
   
 
     //Google Directions API (Use for Transit Info)
@@ -186,36 +184,35 @@ console.log(carType);
 
 //(tripTime * hourValue) = time cost
 
+// ***functions from Steve
+//  function carTime() {
+//    if carType === "Electric" {
+//      carTime = ((driveDist * 0.43) + tripTime);
+//      return carTime;
+ //   } else if carType !== "Electric" {
+//      carTime = tripTime;
+ //     return carTime;
+//    }
+//  }
   
-  function carTime() {
-    if carType === "Electric" {
-      carTime = ((driveDist * 0.43) + tripTime);
-      return carTime;
-    } else if carType !== "Electric" {
-      carTime = tripTime;
-      return carTime;
-    }
-  }
-  
-  function carEco() {
-      carEco = (for i = carType[i]; 
-                ((driveDist/mpgObj[i])*carCarbon)/("#passengers").val().trim());
-    return carEco;
-    }
-  }
+//  function carEco() {
+//      carEco = (for i = carType[i]; 
+ //               ((driveDist/mpgObj[i])*carCarbon)/("#passengers").val().trim());
+ //   return carEco;
+ //   }
+ // }
     
-    function flightTime() {
- flightTime = ( (((time in flight)/60) + 210minutes))/60)
-}            
+//    function flightTime() {
+// flightTime = ( (((time in flight)/60) + 210minutes))/60)
+//}            
     
-    function flyCost() {
-  flyCost = (flightTime * hourValue) + ticketPrice;
-}
+//    function flyCost() {
+//  flyCost = (flightTime * hourValue) + ticketPrice;
+//}
 
-		function flyEco() {
-      flightDistance * flyCarbon 
-    }
-    
+//		function flyEco() {
+ //     flightDistance * flyCarbon 
+ //   }   
 
 
 
