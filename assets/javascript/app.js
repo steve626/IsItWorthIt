@@ -3,14 +3,14 @@ var gasPrice = 2.536 //$-gallon from aaa.com
 var hourValue = 25 //$-hour based on median income in usa
 
 var mpgObj = {    
-    "Compact": 60,
-    "Mid-Size": 44,
-    "FullSize":37,
-    "Small SUV": 34,
-    "Large SUV": 29,
-    "Minivan": 31,
-    "Pick-Up": 26,
-    "Electric": 33
+    "Compact": 33,
+    "Mid-Size": 29,
+    "FullSize": 26,
+    "Small SUV": 25,
+    "Large SUV": 21,
+    "Minivan": 22,
+    "Pick-Up": 19,
+    "Electric": 60
 };
 // var electricMpg = 83
 // var compactMpg = 60
