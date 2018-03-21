@@ -1,3 +1,28 @@
+//globals
+var gasPrice = 2.536 //$-gallon from aaa.com
+var hourValue = 25 //$-hour based on median income in usa
+
+var mpgObj = {    
+    "Compact": 60,
+    "Mid-Size": 44,
+    "FullSize":37,
+    "Small SUV": 34,
+    "Large SUV": 29,
+    "Minivan": 31,
+    "Pick-Up": 26,
+    "Electric": 33
+};
+// var electricMpg = 83
+// var compactMpg = 60
+// var midSizeMpg = 44
+// var fullSizeMpg = 37
+// var smallSuvMpg = 34
+// var largeSuvMpg = 29
+// var miniVanMpg = 31
+// var pickUpMpg = 26
+
+var carCarbon = 19.6 //lbs/gallon
+var flyCarbon = 0.25 //lbs/flight mile
 
 //Bootstrap functions for passangers information
 
@@ -16,9 +41,6 @@ function decreaseValue() {
   document.getElementById('number').value = value;
 }
 
-
-//Submit button should input data
-
 $("#submit").on("click", function() {
 
 //Pulling Form Information info Varables
@@ -26,30 +48,31 @@ var origin = $("#location").val().trim();
 var destination = $("#destination").val().trim(); 
 var passengers = $("#number"); 
 var carType = $("#sel1").val().trim();
-
 console.log(origin);
 console.log(destination);
 console.log(passengers[0].valueAsNumber);
 console.log(carType);
 
+
+
 //Google Directions API
-//var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
-//var origin = $("#location").val().trim();
-//var destination = $("#destination").val().trim();
+// var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
+// var origin = $("#location").val().trim();
+// var destination = $("#desination").val().trim();
 
-//var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkey+"&origin="+origin+"&destination="+destination
+// var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkey+"&origin="+origin+"&destination="+destination
 
-    //$.ajax({
-      //url: queryURL,
-      //method: 'GET'
-    //}).then(function(response) {
-      //console.log(response);
-      //console.log(response)
-    //});
+   //  $.ajax({
+   //   url: queryURL,
+   //   method: 'GET'
+   // }).then(function(response) {
+   //   console.log(response);
+   //   console.log(response)
+   // });
 
  
   
-  //Map Quest Key (Working, use for Driving)
+// Map Quest Key (Working, use for Driving)
   var APIkeyMQ =  "Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
   
   var queryURLMQ = "https://www.mapquestapi.com/directions/v2/route?key="+APIkeyMQ+"&from="+origin+"&to="+destination
@@ -62,18 +85,40 @@ console.log(carType);
        console.log(response);
        console.log("MAP QUEST DISTANCE: "+response.route.distance);
        console.log("MAP QUEST DRIVING TIME: "+response.route.formattedTime);
+       carCost(response);
+
+			function carCost(x) {
+        var gasCost = 0;
+        var timeCost = 0;
+ 			 if (carType === "Electric") {
+          console.log(x.route.distance);
+   			 //gasCost =(x.route.distance * 0.04)/passengers;
+        //  return gasCost;
+        //  console.log("GasCost:"+gasCost);
+  			} else if (carType !== "Electric") {
+          console.log(x.route.distance);
+          console.log(mpgObj[carType]);
+          console.log(gasPrice);
+          console.log(passengers[0].valueAsNumber);
+   			  gasCost = ((x.route.distance/mpgObj[carType])*gasPrice)/passengers[0].valueAsNumber;
+        //  return gasCost;
+          console.log("GasCost: $" +gasCost);
+  				}
+  			//timeCost = (response.route.formattedTime*25);
+  			//carCost = (timeCost + gasCost)
+				};
        
-       $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + response.route.distance + " miles ");
-       $("#drivetime").append("Currently," + " drive time is: " + response.route.formattedTime);
     });
 
 
+  var mapQuestDist = response.route.formattedTime;
+  console.log(mapQuestDist);
+  
+
     //Google Directions API (Use for Transit Info)
  var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
- var originD = $("#location").val().trim();
- var destinationD = $("#destination").val().trim();
  
-  var queryURLD = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkeyD+"&origin="+originD+"&destination="+destinationD+"&mode=transit";
+  var queryURLD = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkeyD+"&origin="+origin+"&destination="+destination+"&mode=transit";
  
      $.ajax({
         url: queryURLD,
@@ -89,10 +134,10 @@ console.log(carType);
 
     //Flight API (Still Pending)
 
-    var queryURL2 = "https://api.flightstats.com/flex/schedules/rest/v1/jsonp/from/PHX/to/LAX/departing/2018/3/30?appId=c5590eb9&appKey=+df8ff1453a113bf7b675d517326983ea";
+    var queryURLF = "https://api.flightstats.com/flex/schedules/rest/v1/jsonp/from/PHX/to/LAX/departing/2018/3/30?appId=c5590eb9&appKey=+df8ff1453a113bf7b675d517326983ea";
 
     $.ajax({
-      url: queryURL2,
+      url: queryURLF,
       method: 'GET',
       dataType: 'jsonp',
    //  cache: false,
@@ -102,35 +147,20 @@ console.log(carType);
    });
 
 
-
+// 9 Result Variables
+	var carCost = 0;
+	var carTime = 0;
+	var carEco = 0;
+	var flyCost = 0;
+	var flyTime = 0;
+	var flyEco = 0;
+	var transitCost = 0;
+	var transitTime = 0;
+	var transitEco = 0;
   
 //Average Fare = $50 + (Distance * $0.11)
 
-//globals
-var gasPrice = 2.536 //$-gallon from aaa.com
-var hourValue = 25 //$-hour based on median income in usa
 
-var mpgObj = {
-    "electric":33, 
-    "compact": 60,
-    "midSize": 44,
-    "fullSize":37,
-    "smallSuv": 34,
-    "largSuv": 29,
-    "miniVan": 31,
-    "pickUp": 26
-};
-// var electricMpg = 83
-// var compactMpg = 60
-// var midSizeMpg = 44
-// var fullSizeMpg = 37
-// var smallSuvMpg = 34
-// var largeSuvMpg = 29
-// var miniVanMpg = 31
-// var pickUpMpg = 26
-
-var carCarbon = 19.6 //lbs/gallon
-var flyCarbon = 0.25 //lbs/flight mile
 
 //electric time per mile to charge = 0.43 minutes/mile traveled 
 //electric cost per mile to charge = 0.04 dollars/mile traveled
@@ -138,6 +168,7 @@ var flyCarbon = 0.25 //lbs/flight mile
 
 
 //get start and end point from user input
+
 
 
 
@@ -152,6 +183,36 @@ var flyCarbon = 0.25 //lbs/flight mile
 
 //(tripTime * hourValue) = time cost
 
+  
+  function carTime() {
+    if carType === "Electric" {
+      carTime = ((driveDist * 0.43) + tripTime);
+      return carTime;
+    } else if carType !== "Electric" {
+      carTime = tripTime;
+      return carTime;
+    }
+  }
+  
+  function carEco() {
+      carEco = (for i = carType[i]; 
+                ((driveDist/mpgObj[i])*carCarbon)/("#passengers").val().trim());
+    return carEco;
+    }
+  }
+    
+    function flightTime() {
+ flightTime = ( (((time in flight)/60) + 210minutes))/60)
+}            
+    
+    function flyCost() {
+  flyCost = (flightTime * hourValue) + ticketPrice;
+}
+
+		function flyEco() {
+      flightDistance * flyCarbon 
+    }
+    
 
 
 
