@@ -86,6 +86,9 @@ console.log(carType);
        console.log("MAP QUEST DISTANCE: "+response.route.distance);
        console.log("MAP QUEST DRIVING TIME: "+response.route.formattedTime);
        carCost(response);
+	     
+       $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + response.route.distance + " miles ");
+       $("#drivetime").append("Currently," + " drive time is: " + response.route.formattedTime);
 
 			function carCost(x) {
         var gasCost = 0;
