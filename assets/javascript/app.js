@@ -86,8 +86,8 @@ if (passengers === 0) {
        carCost(response);
        carEco(response);
 	     
-       $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + Math.round(response.route.distance) + " miles ");
-       $("#drivetime").append("Currently, drive time is: " + response.route.formattedTime);
+       $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + Math.round(response.route.distance) + " miles. ");
+       $("#drivetime").append("Currently, drive time is: " + response.route.formattedTime + " hours. ");
       
 
 			function carCost(x) {
@@ -106,6 +106,7 @@ if (passengers === 0) {
    			  gasCost = ((x.route.distance/mpgObj[carType])*gasPrice)/passengers[0].valueAsNumber;
         //  return gasCost;
           console.log("GasCost: $" +gasCost);
+          $("#carGasCost").append("Your gas cost:" + " $" + Math.round(gasCost) + " MPG");
   				}
         timeCost = ((parseInt(response.route.formattedTime))*25);
         console.log("timeCost: $" + timeCost);
@@ -120,11 +121,11 @@ if (passengers === 0) {
           driveCarbon = parseInt((Math.round(((x.route.distance/mpgObj[carType])*carCarbon)/passengers[0].valueAsNumber)));
           console.log("carEco: " + driveCarbon);
 
-          $("#driveEco").append(driveCarbon + "lbs CO2/person");
+          $("#driveEco").append(driveCarbon + "lbs CO2/person.");
         };
 
 
-        $("#drivecost").append("total cost to drive: $" + carCost);
+        $("#drivecost").append("The total cost to drive: $" + carCost);
 
     
 
@@ -150,7 +151,7 @@ if (passengers === 0) {
             return moment.utc().hours(h).minutes(m).format("HH:mm A");
 
             console.log("fly time: " + flyHours());
-        });
+        };
 
 
         // console.log("timeCost: $" + timeCost);
@@ -158,7 +159,7 @@ if (passengers === 0) {
         // console.log("total car cost: $"+ carCost);    
           
   
-        });
+        };
        
         
     });
