@@ -44,7 +44,7 @@ body {
 
 }
 
-#submit {
+#submit, #reset {
 	background-image: linear-gradient(73deg,#92DC4E,#1DA119);
 	margin-top: 10px;
 }
