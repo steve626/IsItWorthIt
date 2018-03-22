@@ -54,19 +54,19 @@ if (passengers === 0) {
 
 
 //Google Directions API
-// var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
+//var APIkey = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg"
 // var origin = $("#location").val().trim();
 // var destination = $("#desination").val().trim();
 
 // var queryURL = "https://maps.googleapis.com/maps/api/directions/json?key="+APIkey+"&origin="+origin+"&destination="+destination
 
-   //  $.ajax({
-   //   url: queryURL,
-   //   method: 'GET'
-   // }).then(function(response) {
-   //   console.log(response);
-   //   console.log(response)
-   // });
+//     $.ajax({
+//      url: queryURL,
+//      method: 'GET'
+//    }).then(function(response) {
+//      console.log("google: " + response);
+//      console.log(response)
+//    });
 
  
   
@@ -125,6 +125,41 @@ if (passengers === 0) {
 
 
         $("#drivecost").append("total cost to drive: $" + carCost);
+
+    
+
+        function flyCost(x){
+          var flyCost = 0;
+          var flyTime = 0;
+          var flyEco = 0;
+        
+          console.log(x.route.distance);
+   			 flyCost =((parseInt(x.route.distance) * 0.11) + 50);
+         
+          console.log("Avg Fare: $"+ flyCost);
+        
+          //need flying time
+          //formula is flight duration plus 195 minutes (time driving to/from airport, waiting to board and waiting for luggage)
+        //flyTime = ((moment.duration(parseInt(//flying duration//)).asMinutes) + 195 );
+
+        console.log("fly time: " + flyTime),
+        
+        function flyHours(flytime) {
+            var h = flyTime / 60 | 0;
+            var m = flyTime % 60 | 0;
+            return moment.utc().hours(h).minutes(m).format("HH:mm A");
+
+            console.log("fly time: " + flyHours());
+        });
+
+
+        // console.log("timeCost: $" + timeCost);
+        // carCost = Math.round(timeCost + gasCost);
+        // console.log("total car cost: $"+ carCost);    
+          
+  
+        });
+       
         
     });
 
