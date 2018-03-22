@@ -58,7 +58,7 @@
             							<form id="passengers">
 
             								<div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-  											<input type="number" id="number" value="0" />
+  											<input type="number" id="number" value="1" /> <!--changed to 1 from zero to reduce errors -->
 
   											<div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
             							</form>
@@ -99,16 +99,21 @@
 
                 <div id="travelInfo">
                   <div id="drivingInfo">
-                    <h5>If you drive: </h5>
-                    <p id="drivetime"></p>
+                    <h4>If you drive: </h4>
+					<p id="drivetime"></p>
+					<p id="drivecost"></p>
+					<p id="driveEco"></p>
                   </div>
 
                   <div id="flyingInfo">
-                    <h5>If you fly: </h5>
+					<h4>If you fly: </h4>
+					<p id="flytime"></p>
+					<p id="flycost"></p>
+					<p id="flyEco"></p>
                   </div>
 
                   <div id="transitInfo">
-                    <h5>If you transit: </h5>
+                    <h4>If you transit: </h4>
                   </div>
   				      </div>
 

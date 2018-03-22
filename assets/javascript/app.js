@@ -46,6 +46,11 @@ console.log(destination);
 console.log(passengers[0].valueAsNumber);
 console.log(carType);
 
+if (passengers === 0) {
+  alert("passengers cannot be zero");
+  reset(); //needs to be built
+};
+
 
 
 //Google Directions API
@@ -79,18 +84,20 @@ console.log(carType);
        console.log("MAP QUEST DISTANCE: "+response.route.distance);
        console.log("MAP QUEST DRIVING TIME: "+response.route.formattedTime);
        carCost(response);
+       carEco(response);
 	     
-       $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + response.route.distance + " miles ");
-       $("#drivetime").append("Currently," + " drive time is: " + response.route.formattedTime);
+       $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + Math.round(response.route.distance) + " miles ");
+       $("#drivetime").append("Currently, drive time is: " + response.route.formattedTime);
+      
 
 			function carCost(x) {
         var gasCost = 0;
         var timeCost = 0;
  			 if (carType === "Electric") {
           console.log(x.route.distance);
-   			 //gasCost =(x.route.distance * 0.04)/passengers;
-        //  return gasCost;
-        //  console.log("GasCost:"+gasCost);
+   			 gasCost =(x.route.distance * 0.04)/passengers[0].valueAsNumber;
+         //return gasCost;
+          console.log("GasCostEL:"+gasCost);
   			} else if (carType !== "Electric") {
           console.log(x.route.distance);
           console.log(mpgObj[carType]);
@@ -100,12 +107,28 @@ console.log(carType);
         //  return gasCost;
           console.log("GasCost: $" +gasCost);
   				}
-  			//timeCost = (response.route.formattedTime*25);
-  			//carCost = (timeCost + gasCost)
-				};
+        timeCost = ((parseInt(response.route.formattedTime))*25);
+        console.log("timeCost: $" + timeCost);
+        carCost = Math.round(timeCost + gasCost);
+        console.log("total car cost: $"+ carCost);        
+        };
        
+        
+        function carEco(x) {
+          var driveCarbon = 0;
+
+          driveCarbon = parseInt((Math.round(((x.route.distance/mpgObj[carType])*carCarbon)/passengers[0].valueAsNumber)));
+          console.log("carEco: " + driveCarbon);
+
+          $("#driveEco").append(driveCarbon + "lbs CO2/person");
+        };
+
+
+        $("#drivecost").append("total cost to drive: $" + carCost);
+        
     });
 
+    
 
   
 
