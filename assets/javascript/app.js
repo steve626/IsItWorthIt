@@ -86,8 +86,8 @@ if (passengers === 0) {
        carCost(response);
        carEco(response);
 	     
-       $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + Math.round(response.route.distance) + " miles. ");
-       $("#drivetime").append("Currently, drive time is: " + response.route.formattedTime + " hours. ");
+       $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + Math.round(response.route.distance) + " miles ");
+       $("#drivetime").append("Currently, drive time is: " + response.route.formattedTime);
       
 
 			function carCost(x) {
@@ -106,7 +106,6 @@ if (passengers === 0) {
    			  gasCost = ((x.route.distance/mpgObj[carType])*gasPrice)/passengers[0].valueAsNumber;
         //  return gasCost;
           console.log("GasCost: $" +gasCost);
-          $("#carGasCost").append("Your gas cost:" + " $" + Math.round(gasCost) + " MPG");
   				}
         timeCost = ((parseInt(response.route.formattedTime))*25);
         console.log("timeCost: $" + timeCost);
@@ -121,11 +120,11 @@ if (passengers === 0) {
           driveCarbon = parseInt((Math.round(((x.route.distance/mpgObj[carType])*carCarbon)/passengers[0].valueAsNumber)));
           console.log("carEco: " + driveCarbon);
 
-          $("#driveEco").append(driveCarbon + "lbs CO2/person.");
+          $("#driveEco").append(driveCarbon + "lbs CO2/person");
         };
 
 
-        $("#drivecost").append("The total cost to drive: $" + carCost);
+        $("#drivecost").append("total cost to drive: $" + carCost);
 
     
 
@@ -138,6 +137,8 @@ if (passengers === 0) {
    			 flyCost =((parseInt(x.route.distance) * 0.11) + 50);
          
           console.log("Avg Fare: $"+ flyCost);
+
+          $("#flycost").append("Avg airfare: $" + flyCost);
         
           //need flying time
           //formula is flight duration plus 195 minutes (time driving to/from airport, waiting to board and waiting for luggage)
@@ -151,6 +152,17 @@ if (passengers === 0) {
             return moment.utc().hours(h).minutes(m).format("HH:mm A");
 
             console.log("fly time: " + flyHours());
+
+            $("#flytime").append(flyHours + "est. travel time");
+
+        };
+
+        function flyCarbon(x) {
+          var flyCarbon = (parseInt(x.route.distance)*0.25);
+        
+          console.log("flyCarbon: " + flyCarbon);
+
+          $("#flyEco").append(flyCarbon + "lbs/CO2 per person");
         };
 
 
@@ -160,9 +172,12 @@ if (passengers === 0) {
           
   
         };
+
+
+      });
        
         
-    });
+    
 
     
 
@@ -187,17 +202,17 @@ if (passengers === 0) {
 
     //Flight API (Still Pending)
 
-    var queryURLF = "https://api.flightstats.com/flex/schedules/rest/v1/jsonp/from/PHX/to/LAX/departing/2018/3/30?appId=c5590eb9&appKey=+df8ff1453a113bf7b675d517326983ea";
+  //   var queryURLF = "https://api.flightstats.com/flex/schedules/rest/v1/jsonp/from/PHX/to/LAX/departing/2018/3/30?appId=c5590eb9&appKey=+df8ff1453a113bf7b675d517326983ea";
 
-    $.ajax({
-      url: queryURLF,
-      method: 'GET',
-      dataType: 'jsonp',
-   //  cache: false,
-    }).then(function(response) {
-      console.log(response);
+  //   $.ajax({
+  //     url: queryURLF,
+  //     method: 'GET',
+  //     dataType: 'jsonp',
+  //  //  cache: false,
+  //   }).then(function(response) {
+  //     console.log(response);
       
-   });
+  //  });
 
 
 // 9 Result Variables
