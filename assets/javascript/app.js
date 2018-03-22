@@ -34,6 +34,7 @@ function decreaseValue() {
   document.getElementById('number').value = value;
 }
 
+
 $("#submit").on("click", function() {
 
 //Pulling Form Information info Varables
