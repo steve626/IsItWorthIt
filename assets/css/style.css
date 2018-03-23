@@ -109,14 +109,23 @@ input[type=number]::-webkit-outer-spin-button {
   margin-top: 20px;
 }
 
-#leafkey {
+li {
+  list-style-type: none;
+}
+
+#keys {
+  float: right;
+  color: #2E618D;
+  margin-top: 10px;
+}
+#leafkey, #timekey, #carkey, #planekey, #trainkey  {
   color: green;
 }
 
-#carkey, #planekey, #trainkey, #timekey {
-  color: #377bb5;
-}
 
+ #drivingKey, #flyingkey, #leafdisc, #timedisc, #cardisc, #planedisc, #transitdisc {
+  display: inline-block;
+}
 
 
 
