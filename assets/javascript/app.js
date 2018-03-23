@@ -87,11 +87,37 @@ if (passengers === 0) {
        console.log(response);
        console.log("MAP QUEST DISTANCE: "+response.route.distance);
        console.log("MAP QUEST DRIVING TIME: "+response.route.formattedTime);
+       console.log("lat1: " + response.route.locations[0].latLng.lat);
+       console.log("lng1: "+ response.route.locations[0].latLng.lng);
+       console.log("lat2: " + response.route.locations[1].latLng.lat);
+       console.log("lng2: " + response.route.locations[1].latLng.lng);
        carCost(response);
        carEco(response);
-       flyCost(response);
-       flyCarbon(response);
-       flyHours(response);
+       distance(response);
+      
+       var lat1 = parseInt(response.route.locations[0].latLng.lat);
+       var lng1 = parseInt(response.route.locations[0].latLng.lng);
+       var lat2 = parseInt(response.route.locations[1].latLng.lat);
+       var lng2 = parseInt(response.route.locations[1].latLng.lng);
+       
+
+        function distance(lat1, lng1, lat2, lng2) {
+          var R = 3959; // Radius of the earth in miles
+          var dLat = (lat2 - lat1) * Math.PI / 180;  // deg2rad below
+          var dLon = (lng2 - lng1) * Math.PI / 180;
+          var a = 
+             0.5 - Math.cos(dLat)/2 + 
+             Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+             (1 - Math.cos(dLon))/2;
+        
+          return R * 2 * Math.asin(Math.sqrt(a));
+        };
+
+       
+        console.log("dist:" +  distance(lat1, lng1, lat2, lng2));
+
+        var dist =  distance(lat1, lng1, lat2, lng2);
+        console.log(dist);
 	     
        $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + Math.round(response.route.distance) + " miles ");
        $("#drivetime").append("Currently, drive time is: " + response.route.formattedTime);
@@ -129,17 +155,20 @@ if (passengers === 0) {
           console.log("carEco: " + driveCarbon);
 
           $("#driveEco").append(driveCarbon + "lbs CO2/person");
+          $("#drivecost").append("The total cost to drive: $" + carCost); 
         };
-
-
-        $("#drivecost").append("The total cost to drive: $" + carCost);
-
-    
-
-        function flyCost(x){
-          var flyCost = 0;
+					
+       		flyCost(response);
+       		flyCarbon(response);
+       		flyHours(response);
+					
+        	var flyCost = 0;
           var flyTime = 0;
           var flyEco = 0;
+
+  
+        function flyCost(x){
+          
         
           console.log(x.route.distance);
    			 flyCost =((parseInt(x.route.distance) * 0.11) + 50);
@@ -147,49 +176,43 @@ if (passengers === 0) {
           console.log("Avg Fare: $"+ flyCost);
 
           $("#flycost").append("Avg airfare: $" + flyCost);
+          
+         
         
           //need flying time
           //formula is flight duration plus 195 minutes (time driving to/from airport, waiting to board and waiting for luggage)
-        //flyTime = ((moment.duration(parseInt(//flying duration//)).asMinutes) + 195 );
-
-        console.log("fly time: " + flyTime),
         
-        function flyHours(flytime) {
-            var h = flyTime / 60 | 0;
-            var m = flyTime % 60 | 0;
+        flyTime = (((dist/475) * 60 ) + 195 );
+        flyHours(flyTime);
+
+        console.log("fly time1: " + flyTime);
+        
+        function flyHours(x) {         
+
+            var h = x / 60 | 0;
+            var m = x % 60 | 0;
             return moment.utc().hours(h).minutes(m).format("HH:mm A");
 
-            console.log("fly time: " + flyHours());
+            console.log("fly time2: " + flyHours);
 
-            $("#flytime").append(flyHours + "est. travel time");
+            $("#flytime").append(flyHours(flytime) + "est. travel time");
 
         };
+
+        
+       
 
         function flyCarbon(x) {
-          var flyCarbon = (parseInt(x.route.distance)*0.25);
+          var flyCo2 = (parseInt(x.route.distance)*0.25);
         
-          console.log("flyCarbon: " + flyCarbon);
+          console.log("flyCarbon: " + flyCo2);
 
-          $("#flyEco").append(flyCarbon + "lbs/CO2 per person");
+          $("#flyEco").append(flyCo2 + "lbs/CO2 per person");
         };
 
-
-        // console.log("timeCost: $" + timeCost);
-        // carCost = Math.round(timeCost + gasCost);
-        // console.log("total car cost: $"+ carCost);    
-          
-  
-        };
-
-
+      
       });
        
-        
-    
-
-    
-
-  
 
     //Google Directions API (Use for Transit Info)
  var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
@@ -203,10 +226,38 @@ if (passengers === 0) {
    //     cache: false,
        }).then(function(response) {
          console.log(response);
+  
+         $("#transit-time").append("Transit Time: " + response.routes[0].legs[0].duration.text);
          console.log("GOOGLE TRANSIT DURATION: " + response.routes[0].legs[0].duration.text);
+         
          console.log("GOOGLE TRANSIT DISTANCE: " + response.routes[0].legs[0].distance.text);
+         var tDistance = parseInt(response.routes[0].legs[0].distance.text);
+         console.log(tDistance);
+
+         var tc = tDistance * 19 /100 | 100;
+          console.log("TC:"+tc);
+          $("#transit-cost").append("Estimated Transit Cost: $"+tc);
+          
+          var tCarb = (tDistance / 5000 * 2204.6)/4 | 100;
+          $("#transit-Eco").append("Estimated Carbon Footprint: "+tCarb+" lbs CO2/person");
  
       });
+  
+  
+  
+// function transitCost(transitCost) {
+//             var h = flyTime / 60 | 0;
+//             var m = flyTime % 60 | 0;
+//             return moment.utc().hours(h).minutes(m).format("HH:mm A");
+
+//             console.log("fly time: " + flyHours());
+
+//             $("#flytime").append(flyHours + "est. travel time");
+
+//         };
+
+       
+///////////////////////////////
 
     //Flight API (Still Pending)
 
