@@ -1,3 +1,5 @@
+//IsItWorthIt - compares costs of driving vs flying vs transit for travel
+
 //globals
 var gasPrice = 2.536 //$-gallon from aaa.com
 var hourValue = 25 //$-hour based on median income in usa
@@ -33,11 +35,12 @@ function decreaseValue() {
   value--;
   document.getElementById('number').value = value;
 }
-
+//reset location fields
 $("#reset").on("click", function() {
   location.reload();
 });
 
+// guts of the app
 $("#submit").on("click", function() {
 
 //Pulling Form Information info Varables
@@ -87,6 +90,8 @@ if (passengers === 0) {
        console.log(response);
        console.log("MAP QUEST DISTANCE: "+response.route.distance);
        console.log("MAP QUEST DRIVING TIME: "+response.route.formattedTime);
+
+       //gets lat/long coordinates to determine flight distance below
        console.log("lat1: " + response.route.locations[0].latLng.lat);
        console.log("lng1: "+ response.route.locations[0].latLng.lng);
        console.log("lat2: " + response.route.locations[1].latLng.lat);
@@ -101,6 +106,7 @@ if (passengers === 0) {
        var lng2 = parseInt(response.route.locations[1].latLng.lng);
        
 
+       //calculates distance between two cities over curve of earth, in miles
         function distance(lat1, lng1, lat2, lng2) {
           var R = 3959; // Radius of the earth in miles
           var dLat = (lat2 - lat1) * Math.PI / 180;  // deg2rad below
@@ -118,31 +124,41 @@ if (passengers === 0) {
 
         var dist =  distance(lat1, lng1, lat2, lng2);
         console.log(dist);
-	     
+       
+        //writes distance and drive time to DOM
        $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + Math.round(response.route.distance) + " miles ");
-       $("#drivetime").append("Currently, drive time is: " + response.route.formattedTime);
+       $("#drivetime").append("Est. drive time is: " + response.route.formattedTime);
       
 
+       //cost of fuel for driving
 			function carCost(x) {
         var gasCost = 0;
         var timeCost = 0;
  			 if (carType === "Electric") {
           console.log(x.route.distance);
+          //cost of electricity to charge car is about 4-cents per mile
    			 gasCost =(x.route.distance * 0.04)/passengers[0].valueAsNumber;
-         //return gasCost;
+        
           console.log("GasCostEL:"+gasCost);
   			} else if (carType !== "Electric") {
           console.log(x.route.distance);
           console.log(mpgObj[carType]);
           console.log(gasPrice);
           console.log(passengers[0].valueAsNumber);
+          //cost of gallon of gas based on price from AAA and average mpgs per car class
    			  gasCost = ((x.route.distance/mpgObj[carType])*gasPrice)/passengers[0].valueAsNumber;
-        //  return gasCost;
+       
           console.log("GasCost: $" +gasCost);
-	  $("#carGasCost").append("Your gas cost:" + " $" + Math.round(gasCost) + " MPG");
-  				}
+
+          //adds cost of fuel to DOM
+	      $("#carGasCost").append("Est gas cost:" + " $" + Math.round(gasCost));
+          }
+          
+          //average cost of your hour is $25
         timeCost = ((parseInt(response.route.formattedTime))*25);
         console.log("timeCost: $" + timeCost);
+
+        //adds cost of your time driving and cost of fuel
         carCost = Math.round(timeCost + gasCost);
         console.log("total car cost: $"+ carCost);        
         };
@@ -150,43 +166,42 @@ if (passengers === 0) {
         
         function carEco(x) {
           var driveCarbon = 0;
-
+          //calculates average car emissions based on miles driven and MPGs of cars in array
           driveCarbon = parseInt((Math.round(((x.route.distance/mpgObj[carType])*carCarbon)/passengers[0].valueAsNumber)));
           console.log("carEco: " + driveCarbon);
 
-          $("#driveEco").append(driveCarbon + "lbs CO2/person");
+          $("#driveEco").append("Estimated Carbon Footprint: " + driveCarbon + "lbs CO2/person");
           $("#drivecost").append("The total cost to drive: $" + carCost); 
         };
-					
-       		flyCost(response);
+          
+        //calculates flight data
+
+       		flyFare(response);
        		flyCarbon(response);
        		flyHours(response);
 					
         	var flyCost = 0;
           var flyTime = 0;
           var flyEco = 0;
+          var airFare = 0;
 
   
-        function flyCost(x){
+        function flyFare(x){
           
         
           console.log(x.route.distance);
-   			 flyCost =((parseInt(x.route.distance) * 0.11) + 50);
+
+   			 flyFare = Math.round((parseInt(x.route.distance) * 0.11) + 50);
          
-          console.log("Avg Fare: $"+ flyCost);
+          console.log("Avg Fare: $"+ flyFare);
 
-          $("#flycost").append("Avg airfare: $" + flyCost);
+         
           
-        }
+        };
         
-          //need flying time
-          //formula is flight duration plus 195 minutes (time driving to/from airport, waiting to board and waiting for luggage)
+        //flyHours();        
         
-        
-        flyHours();
-
-        
-        
+        //calculates flight time based on flight distance divided by average flight speed adding time (195 minutes) of going to/from airport
         function flyHours(x) {         
             flyTime = (((dist/475) * 60 ) + 195 );
             console.log("fly time1: " + flyTime);
@@ -196,19 +211,25 @@ if (passengers === 0) {
 
             console.log("fly time2: " + formattedTime);
 
-            $("#flytime").append(formattedTime + "est. travel time");
+            $("#flytime").append("Est. travel time: " + formattedTime);
+
+            //to match car cost adds value of time traveling to airfare
+
+          var flyCost = Math.round((parseInt((flyTime/60) * 25) + parseInt(flyFare)));
+
+            $("#flycost").append("The total cost to fly: $" + flyCost);
+            $("#flyfare").append("Avg airfare: $" + flyFare);
 
         };
 
-        
-       
+        //calculates CO2 emissions based on mile of air travel (0.25lbs C per passenger)      
 
         function flyCarbon(x) {
-          var flyCo2 = (parseInt(x.route.distance)*0.25);
+          var flyCo2 = Math.round(parseInt(x.route.distance)*0.25);
         
           console.log("flyCarbon: " + flyCo2);
 
-          $("#flyEco").append(flyCo2 + "lbs/CO2 per person");
+          $("#flyEco").append("Estimated Carbon Footprint: " + flyCo2 + "lbs CO2/person");
         };
 
        //adds leaf to the CO2 friendly option
@@ -251,18 +272,6 @@ if (passengers === 0) {
  
       });
   
-  
-  
-// function transitCost(transitCost) {
-//             var h = flyTime / 60 | 0;
-//             var m = flyTime % 60 | 0;
-//             return moment.utc().hours(h).minutes(m).format("HH:mm A");
-
-//             console.log("fly time: " + flyHours());
-
-//             $("#flytime").append(flyHours + "est. travel time");
-
-//         };
 
        
 ///////////////////////////////
@@ -293,76 +302,7 @@ if (passengers === 0) {
 	var transitTime = 0;
 	var transitEco = 0;
   
-//Average Fare = $50 + (Distance * $0.11)
 
-
-
-//electric time per mile to charge = 0.43 minutes/mile traveled 
-//electric cost per mile to charge = 0.04 dollars/mile traveled
-
-
-
-//get start and end point from user input
-
-
-
-
-//get car type from user input
-
-//get miles and travel time from travel maps api, driving and flying
-
-//get flight cost from travel api 
-
-//if gas car picked: 
-//((tripMiles / MPG) * gasPrice) = trip cost
-
-//(tripTime * hourValue) = time cost
-
-// ***functions from Steve
-//  function carTime() {
-//    if carType === "Electric" {
-//      carTime = ((driveDist * 0.43) + tripTime);
-//      return carTime;
- //   } else if carType !== "Electric" {
-//      carTime = tripTime;
- //     return carTime;
-//    }
-//  }
-  
-//  function carEco() {
-//      carEco = (for i = carType[i]; 
- //               ((driveDist/mpgObj[i])*carCarbon)/("#passengers").val().trim());
- //   return carEco;
- //   }
- // }
-    
-//    function flightTime() {
-// flightTime = ( (((time in flight)/60) + 210minutes))/60)
-//}            
-    
-//    function flyCost() {
-//  flyCost = (flightTime * hourValue) + ticketPrice;
-//}
-
-//		function flyEco() {
- //     flightDistance * flyCarbon 
- //   }   
-
-
-
-//if electric car picked:
-    //miles to drive * 0.43 = time to charge, add to trip time (very generic, Tesla is much faster)
-
-    //((tripTime + chargeTime)*hourValue) = time cost
-
-    //miles to drive * 0.04 = cost of electricity for trip (very generic).
-
-    //(tripMiles * 0.04) = trip cost
-
-
-//for flight:
-    // trip cost = flight cost
-    //time cost = (flight time + 210 minutes of incidental travel time ) * hourValue
 });
 
 
