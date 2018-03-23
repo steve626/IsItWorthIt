@@ -31,11 +31,11 @@
 
 <!--Start of important HTML-->
 
-	<div class="container">
-		<div class="row">
+<div class="container">
+	<div class="row">
 
-			<!--Have users input information here-->
-			<div class="card" id="infoinput">
+		<!--Have users input information here-->
+		<div class="card" id="infoinput">
 					<h5 class="card-header">Let us know about your trip!</h5>
   					<div class="card-body">
     					<form>
@@ -102,7 +102,7 @@
 
                 <div id="travelInfo">
                   <div id="drivingInfo">
-                    <h4>If you drive: </h4>
+                    <h4>If you drive: <div id="drivingKey"></div></h4>
 					<p id="drivetime"></p>
           <p id="carGasCost"></p>
 					<p id="drivecost"></p>
@@ -110,7 +110,7 @@
                   </div>
 
                   <div id="flyingInfo">
-					<h4>If you fly: </h4>
+					<h4>If you fly: <div id="flyingkey"></div></h4>
 					<p id="flytime"></p>
 					<p id="flycost"></p>
 					<p id="flyEco"></p>
@@ -124,20 +124,39 @@
                   </div>
   				      </div>
 
-                <div id="keys">
-                  <i class="fas fa-leaf" id="leafkey"></i>
-                  <i class="fas fa-car" id="carkey"></i>
-                  <i class="fas fa-plane" id="planekey"></i>
-                  <i class="fas fa-train" id="trainkey"></i>
-                  <i class="fas fa-clock" id="timekey"></i>
-                </div>
             
 
             <button type="submit" class="btn btn-primary" id="reset">Reset Info</button>
           </div>
 		</div>
-		</div>
 	</div>
+
+  <div class="row">
+    <div class="col-9" id="keys">
+        <div id="keys">
+                  
+                    <i class="fas fa-leaf" id="leafkey"></i>
+                    <p id="leafdisc"> CO2 Friendly</p>
+                  
+                  
+                    <i class="fas fa-clock" id="timekey"></i>
+                    <p id="timedisc"> Time Saver</p>
+                  
+                  
+                    <i class="fas fa-car" id="carkey"></i>
+                    <p id="cardisc"> Driving is better</p>
+                  
+                  
+                    <i class="fas fa-plane" id="planekey"></i>
+                    <p id="planedisc"> Flying is better</p>
+                  
+                    <i class="fas fa-train" id="trainkey"></i>
+                    <p id="transitdisc"> Transit is better</p>
+                  
+        </div>
+    </div>
+  </div>
+</div>
 <!--Bootstrap JQuery-->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <!--Boostrap Javascript-->
