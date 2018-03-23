@@ -177,18 +177,19 @@ if (passengers === 0) {
 
           $("#flycost").append("Avg airfare: $" + flyCost);
           
-         
+        }
         
           //need flying time
           //formula is flight duration plus 195 minutes (time driving to/from airport, waiting to board and waiting for luggage)
         
-        flyTime = (((dist/475) * 60 ) + 195 );
+        
         flyHours(flyTime);
 
-        console.log("fly time1: " + flyTime);
+        
         
         function flyHours(x) {         
-
+            flyTime = (((dist/475) * 60 ) + 195 );
+            console.log("fly time1: " + flyTime);
             var h = x / 60 | 0;
             var m = x % 60 | 0;
             return moment.utc().hours(h).minutes(m).format("HH:mm A");
