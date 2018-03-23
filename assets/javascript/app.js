@@ -211,7 +211,14 @@ if (passengers === 0) {
           $("#flyEco").append(flyCo2 + "lbs/CO2 per person");
         };
 
-      
+       //adds leaf to the CO2 friendly option
+      if(carEco > flyCarbon) {
+            var iconsArray = ["fa-leaf", "fa-car", "fa-plane", "fa-train", "fa-clock"];
+            var iconsArrayLength = iconsArray.length;
+            $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+          } else if (flyCarbon > carEco) {
+            $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+          };
       });
        
 
