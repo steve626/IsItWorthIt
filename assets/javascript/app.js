@@ -34,6 +34,9 @@ function decreaseValue() {
   document.getElementById('number').value = value;
 }
 
+$("#reset").on("click", function() {
+  location.reload();
+});
 
 $("#submit").on("click", function() {
 
@@ -110,6 +113,7 @@ if (passengers === 0) {
    			  gasCost = ((x.route.distance/mpgObj[carType])*gasPrice)/passengers[0].valueAsNumber;
         //  return gasCost;
           console.log("GasCost: $" +gasCost);
+	  $("#carGasCost").append("Your gas cost:" + " $" + Math.round(gasCost) + " MPG");
   				}
         timeCost = ((parseInt(response.route.formattedTime))*25);
         console.log("timeCost: $" + timeCost);
@@ -128,7 +132,7 @@ if (passengers === 0) {
         };
 
 
-        $("#drivecost").append("total cost to drive: $" + carCost);
+        $("#drivecost").append("The total cost to drive: $" + carCost);
 
     
 
