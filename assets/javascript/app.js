@@ -86,6 +86,9 @@ if (passengers === 0) {
        console.log("MAP QUEST DRIVING TIME: "+response.route.formattedTime);
        carCost(response);
        carEco(response);
+       flyCost(response);
+       flyCarbon(response);
+       flyHours(response);
 	     
        $("#distanceInfo").append("From " + origin + " to " + destination + " the distance is " + Math.round(response.route.distance) + " miles ");
        $("#drivetime").append("Currently, drive time is: " + response.route.formattedTime);
