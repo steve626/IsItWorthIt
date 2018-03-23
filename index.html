@@ -4,23 +4,43 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Is It Worth It?</title>
+	
 	<!--Google Fonts CSS-->
 	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+	
 	<!--Bootstrap CSS-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
 	<!--Font Awesome CSS-->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+	
 	<!--General CSS-->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	
 	<!--Moment JS-->
 	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 	
+	<!--Bootstrap JQuery-->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	
+	<!--Boostrap Javascript-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	<!--General JQuery-->
+	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+	
+	<!--JQuery UI for Auto Complete Function-->
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
+
 <body>
-
-
+	<!-- Header -->
 	<div class="jumbotron jumbotron-fluid" id="header">
   		<div class="container">
     		<h1 class="display-4" id="title">Is It Worth It?</h1>
@@ -28,145 +48,121 @@
   		</div>
 	</div>
 
+	<!--Start of main body HTML-->
+	<div class="container">
+		<div class="row">
+			<!--Have users input information here-->
+			<div class="card" id="infoinput">
+				<h5 class="card-header">Let us know about your trip!</h5>
+				<div class="card-body">
+					<form>
+						<!--Users enter their origin location here-->
+						<div>
+							<label for="location">Your Location</label>
+							<input type="location" class="form-control" id="location">
+						</div>
 
+						<!--Users enter their destination here-->
+						<div>
+							<label for="Destination">Your Destination</label>
+							<input type="text" class="form-control" id="destination">
+						</div>
 
-<!--Start of important HTML-->
-
-<div class="container">
-	<div class="row">
-
-		<!--Have users input information here-->
-		<div class="card" id="infoinput">
-					<h5 class="card-header">Let us know about your trip!</h5>
-  					<div class="card-body">
-    					<form>
-							<!--Users enter their location here-->
-            				<div>
-                				<label for="location">Your Location</label>
-                    			<input type="location" class="form-control" id="location">
-            				</div>
-
-							<!--Users enter where they're traveling here-->
-            				<div>
-                				<label for="Destination">Your Destination</label>
-                    			<input type="text" class="form-control" id="destination">
-            				</div>
-
-							<!--Users list how many passangers there are-->
-            				<div id="passengerinfo">
-
-            					<div>
-
-            						<label for="passengers">How many are traveling?</label>
-            							<form id="passengers">
-
-            								<div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-											  <input type="number" id="number" value="1"></input>
-											  <!--changed to 1 from zero to reduce errors -->
-
-  											<div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
-            							</form>
-            					</div>
-            				</div>
-
-							<!--Users can choose from the options to let us know what best describes their car-->
-            				<div class="form-group">
-  								<label for="sel1">Let us know what car you have:</label>
-  									<select class="form-control" id="sel1">
-    									<option>Compact</option>
-                      <option>Mid-sized</option>
-                      <option>Full-sized</option>
-                      <option>Small SUV</option>
-                      <option>Large SUV</option>
-                      <option>Minivan</option>
-                      <option>Pick-Up</option>
-    									<option>Electric</option>
-    									
-  									</select>
+						<!--Users list how many passangers there are-->
+						<br/><div id="passengerinfo">
+							<div>
+								<label for="passengers">How many are traveling? (ex: 1-5)</label>
+								<form id="passengers">
+									<div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+									<input type="number" id="number" value="1"></input>
+									<div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+								</form>
 							</div>
-                   
-            				<button type="submit" class="btn btn-primary" id="submit">Submit</button>
-        				</form>
-        			</div>
-        	</div>
+						</div>
 
-  			<div class="col-1">
+						<!--Users choose their car type so we can calculate MPGs-->
+						<div class="form-group">
+							<label for="sel1">Let us know what car you have:</label>
+							<select class="form-control" id="sel1">
+								<option>Compact</option>
+								<option>Mid-sized</option>
+								<option>Full-sized</option>
+								<option>Small SUV</option>
+								<option>Large SUV</option>
+								<option>Minivan</option>
+								<option>Pick-Up</option>
+								<option>Electric</option>
+							</select>
+						</div>
+						
+						<!--Submit Button-->
+						<button type="submit" class="btn btn-primary" id="submit">Submit</button>
+					</form>
+				</div>
 			</div>
+
+			<!--Space Filler-->
+			<div class="col-1"></div>
 
 			<!--This is where users will see their information-->
 			<div class="card" id="infodump">
 				<h5 class="card-header">Find Information On Your Trip</h5>
-  				<div class="card-body">
-              <h5 id="infoheader">Based on your info:</h5>
+				<div class="card-body">
+					<h5 id="infoheader">Based on your info:</h5>
+					<p id="distanceInfo"></p>
 
-                <p id="distanceInfo"></p>
+					<div id="travelInfo">
+						<div id="drivingInfo">
+							<h4>If you drive: <div id="drivingKey"></div></h4>
+							<p id="drivetime"></p>
+							<p id="carGasCost"></p>
+							<p id="drivecost"></p>
+							<p id="driveEco"></p>
+						</div>
+						
+						<div id="flyingInfo">
+							<h4>If you fly: <div id="flyingkey"></div></h4>
+							<p id="flytime"></p>
+							<p id="flyfare"></p>
+							<p id="flycost"></p>
+							<p id="flyEco"></p>
+						</div>
 
-                <div id="travelInfo">
-                  <div id="drivingInfo">
-                    <h4>If you drive: <div id="drivingKey"></div></h4>
-					<p id="drivetime"></p>
-          			<p id="carGasCost"></p>
-					<p id="drivecost"></p>
-					<p id="driveEco"></p>
-                  </div>
+						<div id="transitInfo">
+							<h4>If you transit: </h4>
+							<p id="transit-time"></p>
+							<p id="transit-cost"></p>
+							<p id="transit-Eco"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-                  <div id="flyingInfo">
-					<h4>If you fly: <div id="flyingkey"></div></h4>
-					<p id="flytime"></p>
-					<p id="flyfare"></p>
-					<p id="flycost"></p>
-					<p id="flyEco"></p>
-                  </div>
-
-                  <div id="transitInfo">
-                    <h4>If you transit: </h4>
-                    <p id="transit-time"></p>
-										<p id="transit-cost"></p>
-										<p id="transit-Eco"></p>
-                  </div>
-  				      </div>
-
-            
-
-            <button type="submit" class="btn btn-primary" id="reset">Reset Info</button>
-          </div>
+		<div class="row">
+			<div class="col-9" id="keys">
+			<div id="keys">
+				<i class="fas fa-leaf" id="leafkey"></i>
+				<p id="leafdisc"> CO2 Friendly</p>
+					
+				<i class="fas fa-clock" id="timekey"></i>
+				<p id="timedisc"> Time Saver</p>
+					
+				<i class="fas fa-car" id="carkey"></i>
+				<p id="cardisc"> Driving is better</p>
+					
+				<i class="fas fa-plane" id="planekey"></i>
+				<p id="planedisc"> Flying is better</p>
+					
+				<i class="fas fa-train" id="trainkey"></i>
+				<p id="transitdisc"> Transit is better</p>
+					
+			</div>
+			</div>
 		</div>
 	</div>
 
-  <div class="row">
-    <div class="col-9" id="keys">
-        <div id="keys">
-                  
-                    <i class="fas fa-leaf" id="leafkey"></i>
-                    <p id="leafdisc"> CO2 Friendly</p>
-                  
-                  
-                    <i class="fas fa-clock" id="timekey"></i>
-                    <p id="timedisc"> Time Saver</p>
-                  
-                  
-                    <i class="fas fa-car" id="carkey"></i>
-                    <p id="cardisc"> Driving is better</p>
-                  
-                  
-                    <i class="fas fa-plane" id="planekey"></i>
-                    <p id="planedisc"> Flying is better</p>
-                  
-                    <i class="fas fa-train" id="trainkey"></i>
-                    <p id="transitdisc"> Transit is better</p>
-                  
-        </div>
-    </div>
-  </div>
-</div>
-<!--Bootstrap JQuery-->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<!--Boostrap Javascript-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<!--General JQuery-->
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-<!--General Javascript-->
+<!--General Javascript Link-->
 <script src="assets/javascript/app.js"></script>
 
 </body>
