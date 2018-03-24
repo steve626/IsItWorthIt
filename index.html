@@ -46,6 +46,20 @@
     		<h1 class="display-4" id="title">Is It Worth It?</h1>
     		<p class="lead">Find out if it's worth driving, flying or anything in between!</p>
   		</div>
+    
+  	<!--Key for Icons-->
+      <div class="col-12" id="keys">
+        <div id="keys">
+          <i class="fas fa-leaf" id="leafkey"></i>
+            <p id="leafdisc"> CO2 Friendly</p>
+          
+          <i class="fas fa-clock" id="timekey"></i>
+            <p id="timedisc"> Time Saver</p>
+          
+          <i class="fas fa-dollar-sign" id="moneykey"></i>
+            <p id="dollardisc">Cheapest Option</p> 
+        </div>
+  		</div>
 	</div>
 
 	<!--Start of main body HTML-->
@@ -110,10 +124,11 @@
 				<div class="card-body">
 					<h5 id="infoheader">Based on your info:</h5>
 					<p id="distanceInfo"></p>
+          <p id="passCount"></p>
 
 					<div id="travelInfo">
 						<div id="drivingInfo">
-							<h4>If you drive: <div id="drivingKey"></div></h4>
+							<h4>If you drive: <div id="drivingKey"></div><div id="carmoneykey"></div><div id="cartimekey"></div></h4>
 							<p id="drivetime"></p>
 							<p id="carGasCost"></p>
 							<p id="drivecost"></p>
@@ -121,7 +136,7 @@
 						</div>
 						
 						<div id="flyingInfo">
-							<h4>If you fly: <div id="flyingkey"></div></h4>
+							<h4>If you fly: <div id="flyingkey"></div><div id="flymoneykey"></div><div id="flytimekey"></div></h4>
 							<p id="flytime"></p>
 							<p id="flyfare"></p>
 							<p id="flycost"></p>
@@ -129,8 +144,9 @@
 						</div>
 
 						<div id="transitInfo">
-							<h4>If you transit: </h4>
+							<h4>If you transit: <div id="transitkey"></div><div id="transitmoneykey"></div><div id="transittimekey"></div></h4>
 							<p id="transit-time"></p>
+              <p id="transit-fare"></p>
 							<p id="transit-cost"></p>
 							<p id="transit-Eco"></p>
 						</div>
@@ -139,27 +155,6 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-9" id="keys">
-			<div id="keys">
-				<i class="fas fa-leaf" id="leafkey"></i>
-				<p id="leafdisc"> CO2 Friendly</p>
-					
-				<i class="fas fa-clock" id="timekey"></i>
-				<p id="timedisc"> Time Saver</p>
-					
-				<i class="fas fa-car" id="carkey"></i>
-				<p id="cardisc"> Driving is better</p>
-					
-				<i class="fas fa-plane" id="planekey"></i>
-				<p id="planedisc"> Flying is better</p>
-					
-				<i class="fas fa-train" id="trainkey"></i>
-				<p id="transitdisc"> Transit is better</p>
-					
-			</div>
-			</div>
-		</div>
 	</div>
 
 <!--General Javascript Link-->
