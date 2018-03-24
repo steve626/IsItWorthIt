@@ -37,7 +37,7 @@
     var query = $("#location").val().trim();
     if (query.length > 2) {  
      var APIkeyMQL =  "Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
-     var queryURLMQL = "http://www.mapquestapi.com/search/v3/prediction?key="+APIkeyMQL+"&limit=5&collection=adminArea,address&q="+query;
+     var queryURLMQL = "https://www.mapquestapi.com/search/v3/prediction?key="+APIkeyMQL+"&limit=5&collection=adminArea,address&q="+query;
     
      $.ajax({
       url: queryURLMQL,
@@ -66,7 +66,7 @@
     var query = $("#destination").val().trim();
     if (query.length > 2) {  
      var APIkeyMQL =  "Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
-     var queryURLMQL = "http://www.mapquestapi.com/search/v3/prediction?key="+APIkeyMQL+"&limit=5&collection=adminArea,address&q="+query;
+     var queryURLMQL = "https://www.mapquestapi.com/search/v3/prediction?key="+APIkeyMQL+"&limit=5&collection=adminArea,address&q="+query;
 
       $.ajax({
         url: queryURLMQL,
