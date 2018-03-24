@@ -10,6 +10,7 @@
 	var carEco = 0;
   var carCost = 0;
 
+	var passengerCount = 0;
 	var transitCost = 0;
 	var transitTime = 0;
 	var transitEco = 0;
@@ -118,7 +119,8 @@
   var carType = $("#sel1").val().trim();
   console.log(origin);
   console.log(destination);
-  console.log(passengers[0].valueAsNumber);
+  passengerCount = passengers[0].valueAsNumber;
+  console.log("Passenger Count: "+passengerCount);
   console.log(carType);
   $("#location").val("");
   $("#destination").val("");
@@ -146,11 +148,15 @@ $.ajax({
       $("#transit-time").html("Transit Time: " + response.routes[0].legs[0].duration.text);
       console.log("GOOGLE TRANSIT DURATION: " + response.routes[0].legs[0].duration.text);
       console.log("GOOGLE TRANSIT DISTANCE: " + response.routes[0].legs[0].distance.text);
-      var tDistance = response.routes[0].legs[0].distance.text.match(/\d+/g); 
-      var tc = tDistance * 19 /100;
+      var tDistance = ((response.routes[0].legs[0].distance.value)/1609); 
+      console.log("tDist: " + tDistance);
+      var tc = Math.round(tDistance * 19 /100);
      console.log("TC:"+tc);
-     $("#transit-cost").html("Estimated Transit Cost: $"+tc);     
-     var tCarb = (tDistance / 5000 * 2204.6)/4;
+     $("#transit-fare").html("Estimated Transit Fare: $"+tc);   
+    	transitCost = (Math.round(((response.routes[0].legs[0].duration.value)/3600) * 25))+ tc;
+     $("#transit-cost").html("The total cost for transit ($25 per hour of your time): $" + transitCost) 
+       
+     var tCarb = Math.round((tDistance / 5000 * 2204.6)/4);
      $("#transit-Eco").html("Estimated Carbon Footprint: "+tCarb+" lbs CO2/person");
     
     // CALL MAPQUEST API
@@ -166,42 +172,47 @@ $.ajax({
        console.log("MAP QUEST DISTANCE: "+response.route.distance);
        console.log("MAP QUEST DRIVING TIME: "+response.route.formattedTime);
        $("#distanceInfo").html("From " + origin + " to " + destination + " the distance is " + Math.round(response.route.distance) + " miles ");
+       $("#passCount").html("for " + passengerCount + " people traveling in a " + carType + " car.");
       
       //CALCULATE DRIVING - cost of fuel for driving & total cost of your time
-      $("#drivetime").html("Est. drive time is: " + response.route.formattedTime);
+      carTime = response.route.formattedTime;
+      formatCarTime = carTime.split(":");
+      console.log("Formated Car Time:"+formatCarTime[0]);
+      $("#drivetime").html("Estimated drive time is: <b>" + parseInt(formatCarTime[0], 10) + " Hours " + formatCarTime[1] + " Minutes</b>");
        
-      carCost(response);  
-      function carCost(x) {
+      autoCost(response);  
+      function autoCost(x) {
         var gasCost = 0;
         var timeCost = 0;
  			  if (carType === "Electric") {
           //cost of electricity to charge car is about 4-cents per mile
-   			  gasCost =(x.route.distance * 0.04)/passengers[0].valueAsNumber;
+   			  gasCost =(x.route.distance * 0.04)/passengerCount;
           console.log("GasCostEL:"+gasCost);
-          $("#carGasCost").html("Est electricity cost:" + " $" + Math.round(gasCost));
+          $("#carGasCost").html("Estimated electricity cost:" + " <b>$" + Math.round(gasCost)+" per person</b>");
         
         } else if (carType !== "Electric") {
           //cost of gallon of gas based on price from AAA and average mpgs per car class
-   			  gasCost = ((x.route.distance/mpgObj[carType])*gasPrice)/passengers[0].valueAsNumber;
+   			  gasCost = ((x.route.distance/mpgObj[carType])*gasPrice)/passengerCount;
           console.log("GasCost: $" +gasCost);
-	        $("#carGasCost").html("Est gas cost:" + " $" + Math.round(gasCost));
+	        $("#carGasCost").html("Estimated gas cost:" + " <b>$" + Math.round(gasCost)+" per person</b>");
         }
         //average cost of your hour as $25
-        timeCost = ((parseInt(response.route.formattedTime))*25);
-        carCost = Math.round(timeCost + gasCost);
-        console.log("total car cost: $"+ carCost); 
-        $("#drivecost").html("The total cost to drive ($25 per hour of your time): $" + carCost);       
-      };
+        timeCost = (((parseInt(formatCarTime[0])) + (parseInt(formatCarTime[1])/60)))*25;
+        console.log(formatCarTime[0] + "," + (formatCarTime[1])/60);
+        console.log(timeCost);
+        carCost = Math.round(timeCost + (gasCost/passengerCount));
+        console.log("total car cost: $"+ carCost);
+        $("#drivecost").html("The total cost to drive (+$25/hour): <b>$" + carCost+" per person</b>");           
+        };
        
       carEco(response);
       function carEco(x) {
           var driveCarbon = 0;
           //calculates average car emissions based on miles driven and MPGs of cars in array
-          driveCarbon = parseInt((Math.round(((x.route.distance/mpgObj[carType])*carCarbon)/passengers[0].valueAsNumber)));
+          driveCarbon = parseInt((Math.round(((x.route.distance/mpgObj[carType])*carCarbon)/passengerCount)));
           console.log("carEco: " + driveCarbon);
-          $("#driveEco").html("Estimated Carbon Footprint: " + driveCarbon + "lbs CO2/person"); 
+          $("#driveEco").html("Estimated Carbon Footprint: <b>" + driveCarbon + "lbs CO2/person</b>"); 
         };
-        
         
       //CALCULATE FLIGHTS
         
@@ -210,7 +221,7 @@ $.ajax({
 
         function flyFare(x) {
          console.log(x.route.distance);
-         flyFare = Math.round((parseInt(x.route.distance) * 0.11) + 50);
+         flyFare = Math.round(((parseInt(x.route.distance) * 0.11) + 50)*passengerCount);
          console.log("Avg Fare: $"+ flyFare);
          $("#flyfare").html("Avg airfare: $" + flyFare); 
         };
@@ -242,14 +253,14 @@ $.ajax({
             console.log("fly time1: " + flyTime);
             var h = flyTime / 60 | 0;
             var m = flyTime % 60 | 0;
-            var formattedTime = moment.utc().hours(h).minutes(m).format("HH:mm");
+            //var formattedTime = moment.utc().hours(h).minutes(m).format("HH:mm");
             var formattedTime = (h + " Hours " + m + " Minutes");
             console.log("fly time2: " + formattedTime);
             $("#flytime").html("Est. travel time (inc. 3 hours for travel to/from airport): " + formattedTime);
 
             //Adds value of time traveling to airfare
             flyCost = Math.round((parseInt((flyTime/60) * 25) + parseInt(flyFare)));
-            $("#flycost").html("The total cost to fly ($25 per hour): $" + flyCost);
+            $("#flycost").html("The total cost to fly ($25 per hour of your time): $" + flyCost);
           };
 
 
@@ -262,25 +273,64 @@ $.ajax({
             $("#flyEco").html("Estimated Carbon Footprint: " + flyCo2 + "lbs CO2/person");
           };
           
-    
-     });
-  
-
-      //adds leaf to the CO2 friendly option //Needs to Compare Transit & add Other Icrons
-      if(carEco > flyCarbon) {
+    //adds leaf to the CO2 friendly option //Needs to Compare Transit & add Other Icrons
+       if(carEco > flyCarbon) {
         var iconsArray = ["fa-leaf", "fa-car", "fa-plane", "fa-train", "fa-clock"];
         var iconsArrayLength = iconsArray.length;
         $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
       } else if (flyCarbon > carEco) {
         $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
       };
-    }
 
+      if (tCarb < carEco) {
+        $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      } else if (tCarb > carEco) { 
+        $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      };
+
+      if (tCarb < flyCarbon) {
+        $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      } else if (tCarb > flyCarbon) {
+        $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      };
+       
+      //Adds clocks to fastest option
+
+      if (flyHours < carTime) {
+        $("#flytimekey").html("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
+        }
+
+     });
+  
+
+      //adds leaf to the CO2 friendly option //Needs to Compare Transit & add Other Icrons
+       if(carEco > flyCarbon) {
+        var iconsArray = ["fa-leaf", "fa-car", "fa-plane", "fa-train", "fa-clock"];
+        var iconsArrayLength = iconsArray.length;
+        $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      } else if (flyCarbon > carEco) {
+        $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      };
+
+      if (tCarb < carEco) {
+        $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      } else if (tCarb > carEco) { 
+        $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      };
+
+      if (tCarb < flyCarbon) {
+        $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      } else if (tCarb > flyCarbon) {
+        $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+      };
+      
+      //Adds dollar to the cheapest option
+      
+     }
   }, function(errorObject) { //Error for Google API (Entire Code is wrapped in this call)
     alert ("Whoops! An error has occured. Please ensure the locations entered are valid.");
     console.log("GOOGLE API ERROR: " + errorObject.code);
   });
    
 }); // End of Submit Click Function
-
 
