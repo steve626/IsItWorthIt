@@ -16,7 +16,7 @@ body {
 	text-align: center;
 	color: #fff;
 	letter-spacing: 2px;
-	height: 200px;
+	height: 250px;
 	opacity: 0.8;
 }
 
@@ -116,18 +116,15 @@ li {
 }
 
 #keys {
-  float: right;
-  color: #2E618D;
-  margin-top: 10px;
+  color: #f1f1f1;
+  
 }
-#leafkey, #timekey, #carkey, #planekey, #trainkey  {
+#leafkey, #timekey, #carkey, #planekey, #trainkey, #moneykey, #carmoneykey, #flymoneykey, #transitmoneykey  {
   color: green;
 }
 
 
- #drivingKey, #flyingkey, #leafdisc, #timedisc, #cardisc, #planedisc, #transitdisc {
+ #drivingKey, #flyingkey, #transitkey, #leafdisc, #timedisc, #dollardisc,  #carmoneykey, #flymoneykey, #transitmoneykey {
   display: inline-block;
 }
-
-
 
