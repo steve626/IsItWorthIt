@@ -155,7 +155,6 @@ $.ajax({
       transitTime = parseInt(response.routes[0].legs[0].duration.value/3600);
       console.log("tranTime in hours: "+ transitTime);
       console.log("formTranTime: "+ formatedTransitTime);
-
       console.log("GOOGLE TRANSIT DURATION: " + response.routes[0].legs[0].duration.text);
       console.log("GOOGLE TRANSIT DISTANCE: " + response.routes[0].legs[0].distance.text);
       var tDistance = ((response.routes[0].legs[0].distance.value)/1609); 
@@ -199,19 +198,15 @@ $.ajax({
  			  if (carType === "Electric") {
           //cost of electricity to charge car is about 4-cents per mile
    			  gasCost =(x.route.distance * 0.04)/passengerCount;
-          console.log("GasCostEL:"+gasCost);
           $("#carGasCost").html("Estimated electricity cost:" + " <b>$" + Math.round(gasCost)+" per person</b>");
         
         } else if (carType !== "Electric") {
           //cost of gallon of gas based on price from AAA and average mpgs per car class
    			  gasCost = ((x.route.distance/mpgObj[carType])*gasPrice)/passengerCount;
-          console.log("GasCost: $" +gasCost);
-	        $("#carGasCost").html("Estimated gas cost:" + " <b>$" + Math.round(gasCost)+" per person</b>");
+          $("#carGasCost").html("Estimated gas cost:" + " <b>$" + Math.round(gasCost)+" per person</b>");
         }
         //average cost of your hour as $25
         timeCost = (((parseInt(formatCarTime[0])) + (parseInt(formatCarTime[1])/60)))*25;
-        console.log(formatCarTime[0] + "," + (formatCarTime[1])/60);
-        console.log(timeCost);
         carCost = Math.round(timeCost + (gasCost/passengerCount));
         console.log("total car cost: $"+ carCost);
         $("#drivecost").html("The total cost to drive: <b>$" + carCost+" per person</b> ($25 per hour of your time)");           
@@ -222,7 +217,6 @@ $.ajax({
           //var driveCarbon = 0;
           //calculates average car emissions based on miles driven and MPGs of cars in array
           carEco = parseInt((Math.round(((x.route.distance/mpgObj[carType])*carCarbon)/passengerCount)));
-          console.log("carEco: " + carEco);
           $("#driveEco").html("Estimated Carbon Footprint: <b>" + carEco + "lbs CO2/person</b>"); 
         };
         
@@ -262,14 +256,11 @@ $.ajax({
             //calculates flight time based on flight distance divided by average flight speed
             //adds time for going to/from airport         
             flyTime = (((dist/475) * 60 ) + 180 );
-            console.log("fly time1: " + flyTime);
             var h = flyTime / 60 | 0;
             var m = flyTime % 60 | 0;
             
             flyFormattedTime = (h + " Hours " + m + " Minutes");
-            console.log("fly time2: " + flyFormattedTime);
             flyHours = (h);
-            console.log("flyHours: " + flyHours);
             $("#flytime").html("Est. travel time:<b> " + flyFormattedTime + "</b> (inc. 3 hours for travel to/from airport)");
 
             //Adds value of time traveling to airfare
@@ -283,7 +274,6 @@ $.ajax({
        		function flyCarbon(x) {
             //calculates CO2 emissions based on mile of air travel (0.25lbs C per passenger)
             flyEco = Math.round(parseInt(x.route.distance)*0.25);
-            console.log("flyCarbon: " + flyEco);
             $("#flyEco").html("Estimated Carbon Footprint: <b>" + flyEco + "lbs CO2/person</b>");
           };
           
