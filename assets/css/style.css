@@ -20,6 +20,13 @@ body {
 	opacity: 0.8;
 }
 
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #header {
+      height: 300px;
+    }
+}
+
 #title {
 	margin-top: -25px;
 }
