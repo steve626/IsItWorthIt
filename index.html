@@ -43,6 +43,16 @@
 </head>
 
 <body>
+	<!-- Location Error Box -->	
+	<div id="dialog" title="Whoops!">
+		<p> An error has occured. Please ensure the locations entered are valid.</p>
+	 </div>
+	
+	 <!-- CORS Error Box -->	
+	<div id="dialog2" title="Whoops!">
+		<p>An error has occured. Please install & turn on the CORS Chrome Extension, then refresh your page. </p>
+	</div>
+
 	<!-- Header -->
 	<div class="jumbotron jumbotron-fluid" id="header">
   		<div class="container">
@@ -126,10 +136,10 @@
 				<h5 class="card-header">Find Information On Your Trip</h5>
 				<div class="card-body">
 					<h5 id="infoheader">Based on your info:</h5>
-					<p id="distanceInfo"></p>
-          			<p id="passCount"></p>
+					<p><span id="distanceInfo"></span>
+          			<span id="passCount"></span></p>
 
-					<div class "panel panel-secondary" id="travelInfo">
+					<div class="panel panel-secondary" id="travelInfo">
 						<div class="panel-body">
 							<table class="table table-hover">
 								<tr>
@@ -205,7 +215,7 @@
 		</div>
 
 	</div>
-
+	<br/><br/>
 <!--General Javascript Link-->
 <script src="assets/javascript/app.js"></script>
 

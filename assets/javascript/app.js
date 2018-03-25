@@ -37,6 +37,8 @@
   
   // Map Quest Predictive Text for Origin Location
   $('#location').on('input', function() {
+    
+   
     var query = $("#location").val().trim();
     if (query.length > 2) {  
      var APIkeyMQL =  "Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
@@ -58,7 +60,7 @@
         $( "#location" ).autocomplete({source: availableCities});
 
       }, function(errorObject) {
-         alert ("Whoops! An error has occured. Please install and turn on CORS extension, then refresh page.");
+        $("#dialog2").dialog();
          console.log("The read failed: " + errorObject.code);
       });
     }
@@ -87,7 +89,7 @@
       $("#destination").autocomplete({source: availableCities});
 
       }, function(errorObject) {
-         alert ("Whoops! An error has occured. Please install & turn on CORS extension to use APP");
+        $("#dialog2").dialog(); 
          console.log("The read failed: " + errorObject.code);
       });
     } 
@@ -128,9 +130,10 @@
   $("#destination").val("");
   $("#number").val(1); 
   $("#sel1").val("Compact");
-  $("#drivingKey").val("");
-  $("#flyingKey").val("");
-  $("#transitKey").val("");
+  $("#drivingKey").html("");
+  $("#flyingkey").html("");
+  $("#transitkey").html("");
+
 
 //Google Directions API (Use for Transit Info & Confirm Valid Locations)
 var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
@@ -143,7 +146,8 @@ $.ajax({
     //If not found on Google API
     if (response.status === "NOT_FOUND") {
       console.log("Google API Error:"+ response.status);
-      alert ("Whoops! An error has occured. Please ensure the locations entered are valid.");
+      $("#dialog").dialog();  
+      return false;
      } 
      //If found on Google API
      else {
@@ -315,7 +319,7 @@ $.ajax({
       
      }
   }, function(errorObject) { //Error for Google API (Entire Code is wrapped in this call)
-    alert ("Whoops! An error has occured. Please ensure the locations entered are valid.");
+    $("#dialog").dialog(); 
     console.log("GOOGLE API ERROR: " + errorObject.code);
   });
    
