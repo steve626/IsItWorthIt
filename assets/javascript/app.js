@@ -127,6 +127,9 @@
   $("#destination").val("");
   $("#number").val(1); 
   $("#sel1").val("Compact");
+  $("#drivingKey").val("");
+  $("#flyingKey").val("");
+  $("#transitKey").val("");
 
 //Google Directions API (Use for Transit Info & Confirm Valid Locations)
 var APIkeyD = "AIzaSyB1BAEdGTc2ICoqQdaJf9Rpf3p_zCZPIGg";
@@ -258,7 +261,7 @@ $.ajax({
             console.log("fly time1: " + flyTime);
             var h = flyTime / 60 | 0;
             var m = flyTime % 60 | 0;
-            //var formattedTime = moment.utc().hours(h).minutes(m).format("HH:mm");
+            
             var formattedTime = (h + " Hours " + m + " Minutes");
             console.log("fly time2: " + formattedTime);
             $("#flytime").html("Est. travel time:<b> " + formattedTime + "</b> (inc. 3 hours for travel to/from airport)");
@@ -279,33 +282,33 @@ $.ajax({
           };
           
         //adds leaf to the CO2 friendly option
-        console.log("Eco Compares: "+carEco + flyEco + transitEco);   
+        console.log("Eco Compares: "+carEco+", " + flyEco+", " + transitEco);   
         if (carEco < flyEco && carEco < transitEco) {
-            $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+            $("#drivingKey").append("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
           } else if (flyEco < carEco && flyEco < transitEco) {
-            $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+            $("#flyingkey").append("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
           } else if (transitEco < carEco && transitEco < flyEco) {
-            $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+            $("#transitkey").append("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
           };
   
           //Adds clocks to fastest option
           console.log("Time Compares: "+carTime+", " + flyTime+", " + transitTime);   
           if (carTime < flyTime && carTime < transitTime) {
-            $("#drivingKey").html("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
+            $("#drivingKey").append("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
           } else if (flyTime < carTime && flyTime < transitTime) {
-            $("#flyingkey").html("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
+            $("#flyingkey").append("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
           } else if (transitTime < carTime && transitTime < flyTime) {
-            $("#transitkey").html("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
+            $("#transitkey").append("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
           };
 
           //Adds dollar sign to cheapest option
-          console.log("Time Compares: "+carCost+", " + flyCost+", " + transitCost);   
+          console.log("Cost Compares: "+carCost+", " + flyCost+", " + transitCost);   
           if (carCost < flyCost && carCost < transitCost) {
-            $("#drivingKey").html("<i " + "class='fas " + "fa-dollar-sign '" + "id='moneykey'>" + "<i>");
+            $("#drivingKey").append("<i " + "class='fas " + "fa-dollar-sign '" + "id='moneykey'>" + "<i>");
           } else if (flyCost < carCost && flyCost < transitCost) {
-            $("#flyingkey").html("<i " + "class='fas " + "fa-dollar-sign '" + "id='moneykey'>" + "<i>");
+            $("#flyingkey").append("<i " + "class='fas " + "fa-dollar-sign '" + "id='moneykey'>" + "<i>");
           } else if (transitCost < carCost && transitCost < flyCost) {
-            $("#transitkey").html("<i " + "class='fas " + "fa-dollar-sign '" + "id='moneykey'>" + "<i>");
+            $("#transitkey").append("<i " + "class='fas " + "fa-dollar-sign '" + "id='moneykey'>" + "<i>");
           };
 
 
