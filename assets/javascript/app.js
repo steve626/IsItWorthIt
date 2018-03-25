@@ -17,7 +17,8 @@
   
   var flyFare = 0;
   var flyCost = 0;
-	var flyTime = 0;
+  var flyTime = 0;
+  var flyEco = 0;
 
   var mpgObj = {    
     "Compact": 33,
@@ -146,6 +147,9 @@ $.ajax({
     
     //CALCULATE TRANSIT INFO
       $("#transit-time").html("Transit Time: <b>" + response.routes[0].legs[0].duration.text + "</b>");
+      var formatedTransitTime = response.routes[0].legs[0].duration.text.split(" ");
+      transitTime = (parseInt(formatedTransitTime[0])*60)+parseInt(formatedTransitTime[2]);
+
       console.log("GOOGLE TRANSIT DURATION: " + response.routes[0].legs[0].duration.text);
       console.log("GOOGLE TRANSIT DISTANCE: " + response.routes[0].legs[0].distance.text);
       var tDistance = ((response.routes[0].legs[0].distance.value)/1609); 
@@ -156,8 +160,8 @@ $.ajax({
     	transitCost = (Math.round(((response.routes[0].legs[0].duration.value)/3600) * 25))+ tc;
      $("#transit-cost").html("The total cost for transit: <b>$" + transitCost + " per person</b> ($25 per hour of your time)") 
        
-     var tCarb = Math.round((tDistance / 5000 * 2204.6)/4);
-     $("#transit-Eco").html("Estimated Carbon Footprint:<b> "+tCarb+" lbs CO2/person </b>");
+     transitEco = Math.round((tDistance / 5000 * 2204.6)/4);
+     $("#transit-Eco").html("Estimated Carbon Footprint:<b> "+transitEco+" lbs CO2/person </b>");
     
     // CALL MAPQUEST API
      var APIkeyMQ =  "Ss29GBXDbzePoFJUyL0XDl5eLGAKdjYu";
@@ -179,7 +183,8 @@ $.ajax({
       formatCarTime = carTime.split(":");
       console.log("Formated Car Time:"+formatCarTime[0]);
       $("#drivetime").html("Estimated drive time is: <b>" + parseInt(formatCarTime[0], 10) + " Hours " + formatCarTime[1] + " Minutes</b>");
-       
+      carTime =  (parseInt(formatCarTime[0], 10) * 60)+parseInt(formatCarTime[1]);
+
       autoCost(response);  
       function autoCost(x) {
         var gasCost = 0;
@@ -207,11 +212,11 @@ $.ajax({
        
       carEco(response);
       function carEco(x) {
-          var driveCarbon = 0;
+          //var driveCarbon = 0;
           //calculates average car emissions based on miles driven and MPGs of cars in array
-          driveCarbon = parseInt((Math.round(((x.route.distance/mpgObj[carType])*carCarbon)/passengerCount)));
-          console.log("carEco: " + driveCarbon);
-          $("#driveEco").html("Estimated Carbon Footprint: <b>" + driveCarbon + "lbs CO2/person</b>"); 
+          carEco = parseInt((Math.round(((x.route.distance/mpgObj[carType])*carCarbon)/passengerCount)));
+          console.log("carEco: " + carEco);
+          $("#driveEco").html("Estimated Carbon Footprint: <b>" + carEco + "lbs CO2/person</b>"); 
         };
         
       //CALCULATE FLIGHTS
@@ -256,7 +261,7 @@ $.ajax({
             //var formattedTime = moment.utc().hours(h).minutes(m).format("HH:mm");
             var formattedTime = (h + " Hours " + m + " Minutes");
             console.log("fly time2: " + formattedTime);
-            $("#flytime").html("Est. travel time:<b> " + formattedTime + " (inc. 3 hours for travel to/from airport)</b>");
+            $("#flytime").html("Est. travel time:<b> " + formattedTime + "</b> (inc. 3 hours for travel to/from airport)");
 
             //Adds value of time traveling to airfare
             flyCost = Math.round((parseInt((flyTime/60) * 25) + parseInt(flyFare)));
@@ -268,63 +273,46 @@ $.ajax({
        		flyCarbon(response);
        		function flyCarbon(x) {
             //calculates CO2 emissions based on mile of air travel (0.25lbs C per passenger)
-            var flyCo2 = Math.round(parseInt(x.route.distance)*0.25);
-            console.log("flyCarbon: " + flyCo2);
-            $("#flyEco").html("Estimated Carbon Footprint: <b>" + flyCo2 + "lbs CO2/person</b>");
+            flyEco = Math.round(parseInt(x.route.distance)*0.25);
+            console.log("flyCarbon: " + flyEco);
+            $("#flyEco").html("Estimated Carbon Footprint: <b>" + flyEco + "lbs CO2/person</b>");
           };
           
-    //adds leaf to the CO2 friendly option //Needs to Compare Transit & add Other Icrons
-       if(carEco > flyCarbon) {
-        var iconsArray = ["fa-leaf", "fa-car", "fa-plane", "fa-train", "fa-clock"];
-        var iconsArrayLength = iconsArray.length;
-        $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      } else if (flyCarbon > carEco) {
-        $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      };
+        //adds leaf to the CO2 friendly option
+        console.log("Eco Compares: "+carEco + flyEco + transitEco);   
+        if (carEco < flyEco && carEco < transitEco) {
+            $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+          } else if (flyEco < carEco && flyEco < transitEco) {
+            $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+          } else if (transitEco < carEco && transitEco < flyEco) {
+            $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
+          };
+  
+          //Adds clocks to fastest option
+          console.log("Time Compares: "+carTime+", " + flyTime+", " + transitTime);   
+          if (carTime < flyTime && carTime < transitTime) {
+            $("#drivingKey").html("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
+          } else if (flyTime < carTime && flyTime < transitTime) {
+            $("#flyingkey").html("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
+          } else if (transitTime < carTime && transitTime < flyTime) {
+            $("#transitkey").html("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
+          };
 
-      if (tCarb < carEco) {
-        $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      } else if (tCarb > carEco) { 
-        $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      };
+          //Adds dollar sign to cheapest option
+          console.log("Time Compares: "+carCost+", " + flyCost+", " + transitCost);   
+          if (carCost < flyCost && carCost < transitCost) {
+            $("#drivingKey").html("<i " + "class='fas " + "fa-dollar-sign '" + "id='moneykey'>" + "<i>");
+          } else if (flyCost < carCost && flyCost < transitCost) {
+            $("#flyingkey").html("<i " + "class='fas " + "fa-dollar-sign '" + "id='moneykey'>" + "<i>");
+          } else if (transitCost < carCost && transitCost < flyCost) {
+            $("#transitkey").html("<i " + "class='fas " + "fa-dollar-sign '" + "id='moneykey'>" + "<i>");
+          };
 
-      if (tCarb < flyCarbon) {
-        $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      } else if (tCarb > flyCarbon) {
-        $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      };
-       
-      //Adds clocks to fastest option
-
-      if (flyHours < carTime) {
-        $("#flytimekey").html("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
-        }
 
      });
   
 
-      //adds leaf to the CO2 friendly option //Needs to Compare Transit & add Other Icrons
-       if(carEco > flyCarbon) {
-        var iconsArray = ["fa-leaf", "fa-car", "fa-plane", "fa-train", "fa-clock"];
-        var iconsArrayLength = iconsArray.length;
-        $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      } else if (flyCarbon > carEco) {
-        $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      };
-
-      if (tCarb < carEco) {
-        $("#drivingKey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      } else if (tCarb > carEco) { 
-        $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      };
-
-      if (tCarb < flyCarbon) {
-        $("#flyingkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      } else if (tCarb > flyCarbon) {
-        $("#transitkey").html("<i " + "class='fas " + "fa-leaf '" + "id='leafkey'>" + "<i>");
-      };
-      
-      //Adds dollar to the cheapest option
+    
       
      }
   }, function(errorObject) { //Error for Google API (Entire Code is wrapped in this call)
