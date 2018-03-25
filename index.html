@@ -129,30 +129,76 @@
 					<p id="distanceInfo"></p>
           			<p id="passCount"></p>
 
-					<div id="travelInfo">
-						<div id="drivingInfo">
+					<div class "panel panel-secondary" id="travelInfo">
+						<div class="panel-body">
+							<table class="table table-hover">
+								<tr>
+									<td></td>
+									<th scope="col">Trip Duration</th>
+									<th scope="col">Fuel/Fare cost</th>
+									<th scope="col">Total Cost</th>
+									<th scope="col">Carbon Impact</th>
+									<th scope="col"></th>
+								</tr>
+								<tr>
+									<th scope="row">Driving</th>
+									<td class="result" id="drivetime"></td>
+									<td class="result" id="carGasCost"></td>
+									<td class="result" id="drivecost"></td>
+									<td class="result" id="driveEco"></td>
+									<td id="drivingKey"></td>
+									<td id="carmoneykey"></td>
+									<td id="cartimekey"></td>
+								</tr>
+								<tr>
+									<th scope="row">Flying</th>
+									<td class="result" id="flytime"></td>
+									<td class="result" id="flyfare"></td>
+									<td class="result" id="flycost"></td>
+									<td class="result" id="flyEco"></td>
+									<td id="flyingkey"></td>
+									<td id="flymoneykey"></td>
+									<td id="flytimekey"></td>
+								</tr>
+								<tr>
+									<th scope="row">Using Transit</th>
+									<td class="result" id="transit-time"></td>
+              						<td class="result" id="transit-fare"></td>
+									<td class="result" id="transit-cost"></td>
+									<td class="result" id="transit-Eco"></td>
+									<td id="transitkey"></td>
+									<td id="transitmoneykey"></td>
+									<td id="transittimekey"></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>per person</td>
+									<td>assumes $25/hour</td>
+									<td>lbs CO2/ person</td>
+								</tr>
+							</table>
+						</div>
+						<!-- <div id="drivingInfo">
 							<h4>If you drive: <div id="drivingKey"></div><div id="carmoneykey"></div><div id="cartimekey"></div></h4>
-							<p class="result" id="drivetime"></p>
-							<p class="result" id="carGasCost"></p>
-							<p class="result" id="drivecost"></p>
-							<p class="result" id="driveEco"></p>
+							<td class="result" id="drivetime"></td>
+							<td class="result" id="carGasCost"></td>
+							<td class="result" id="drivecost"></td>
+							<td class="result" id="driveEco"></td>
 						</div>
 						
 						<div id="flyingInfo">
-							<h4>If you fly: <div id="flyingkey"></div><div id="flymoneykey"></div><div id="flytimekey"></div></h4>
-							<p class="result" id="flytime"></p>
-							<p class="result" id="flyfare"></p>
-							<p class="result" id="flycost"></p>
-							<p class="result" id="flyEco"></p>
+							<h4>If you fly: <td id="flyingkey"></td><td id="flymoneykey"></td><td id="flytimekey"></td></h4>
+							
 						</div>
 
 						<div id="transitInfo">
-							<h4>If you transit: <div id="transitkey"></div><div id="transitmoneykey"></div><div id="transittimekey"></div></h4>
-							<p class="result" id="transit-time"></p>
-              				<p class="result" id="transit-fare"></p>
-							<p class="result" id="transit-cost"></p>
-							<p class="result" id="transit-Eco"></p>
-						</div>
+							<h4>If you transit: <td id="transitkey"></td><td id="transitmoneykey"></td><td id="transittimekey"></td></h4>
+							<td class="result" id="transit-time"></td>
+              				<td class="result" id="transit-fare"></td>
+							<td class="result" id="transit-cost"></td>
+							<td class="result" id="transit-Eco"></td>
+						</div> -->
 					</div>
 				</div>
 			</div>

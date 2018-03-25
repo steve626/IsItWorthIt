@@ -38,10 +38,14 @@ body {
 }
 
 #infoinput {
-	width: 585px;
+	width: 510px;
 }
 #infodump {
-	width: 460px;
+  width: 510px;
+}
+
+table {
+  text-align: center;
 }
 
 #dropdownMenuButton {
