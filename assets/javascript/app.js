@@ -19,6 +19,7 @@
   var flyCost = 0;
   var flyTime = 0;
   var flyEco = 0;
+  var flyHours = 0;
 
   var mpgObj = {    
     "Compact": 33,
@@ -151,7 +152,9 @@ $.ajax({
     //CALCULATE TRANSIT INFO
       $("#transit-time").html("Transit Time: <b>" + response.routes[0].legs[0].duration.text + "</b>");
       var formatedTransitTime = response.routes[0].legs[0].duration.text.split(" ");
-      transitTime = (parseInt(formatedTransitTime[0])*60)+parseInt(formatedTransitTime[2]);
+      transitTime = parseInt(response.routes[0].legs[0].duration.value/3600);
+      console.log("tranTime in hours: "+ transitTime);
+      console.log("formTranTime: "+ formatedTransitTime);
 
       console.log("GOOGLE TRANSIT DURATION: " + response.routes[0].legs[0].duration.text);
       console.log("GOOGLE TRANSIT DISTANCE: " + response.routes[0].legs[0].distance.text);
@@ -185,6 +188,7 @@ $.ajax({
       carTime = response.route.formattedTime;
       formatCarTime = carTime.split(":");
       console.log("Formated Car Time:"+formatCarTime[0]);
+
       $("#drivetime").html("Estimated drive time is: <b>" + parseInt(formatCarTime[0], 10) + " Hours " + formatCarTime[1] + " Minutes</b>");
       carTime =  (parseInt(formatCarTime[0], 10) * 60)+parseInt(formatCarTime[1]);
 
@@ -262,9 +266,11 @@ $.ajax({
             var h = flyTime / 60 | 0;
             var m = flyTime % 60 | 0;
             
-            var formattedTime = (h + " Hours " + m + " Minutes");
-            console.log("fly time2: " + formattedTime);
-            $("#flytime").html("Est. travel time:<b> " + formattedTime + "</b> (inc. 3 hours for travel to/from airport)");
+            flyFormattedTime = (h + " Hours " + m + " Minutes");
+            console.log("fly time2: " + flyFormattedTime);
+            flyHours = (h);
+            console.log("flyHours: " + flyHours);
+            $("#flytime").html("Est. travel time:<b> " + flyFormattedTime + "</b> (inc. 3 hours for travel to/from airport)");
 
             //Adds value of time traveling to airfare
             flyCost = Math.round((parseInt((flyTime/60) * 25) + parseInt(flyFare)));
@@ -292,12 +298,12 @@ $.ajax({
           };
   
           //Adds clocks to fastest option
-          console.log("Time Compares: "+carTime+", " + flyTime+", " + transitTime);   
-          if (carTime < flyTime && carTime < transitTime) {
+          console.log("Time Compares: "+carTime+", " + flyHours+", " + transitTime);   
+          if (carTime < flyHours && carTime < transitTime) {
             $("#drivingKey").append("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
-          } else if (flyTime < carTime && flyTime < transitTime) {
+          } else if (flyHours < carTime && flyHours < transitTime) {
             $("#flyingkey").append("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
-          } else if (transitTime < carTime && transitTime < flyTime) {
+          } else if (transitTime < carTime && transitTime < flyHours) {
             $("#transitkey").append("<i " + "class='fas " + "fa-clock '" + "id='timekey'>" + "<i>");
           };
 
