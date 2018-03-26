@@ -42,28 +42,38 @@
 
 	</head>
 
-	<body>
-		<!-- Header -->
-		<div class="jumbotron jumbotron-fluid" id="header">
-	  		<div class="container">
-	    		<h1 class="display-4" id="title">Is It Worth It?</h1>
-	    		<p class="lead">Find out if it's worth driving, flying or something in between!</p>
-	  		</div>
-	    
-	  		<!--Key for Icons-->
-	      <div class="col-12" id="keys">
-	        <div id="keys">
-	          <i class="fas fa-leaf" id="leafkey"></i>
-	            <p id="leafdisc"> CO2 Friendly</p>
-	          
-	          <i class="fas fa-clock" id="timekey"></i>
-	            <p id="timedisc"> Time Saver</p>
-	          
-	          <i class="fas fa-dollar-sign" id="moneykey"></i>
-	            <p id="dollardisc">Cheapest Option</p> 
-	        </div>
-	  		</div>
-		</div>
+<body>
+	<!-- Location Error Box -->	
+	<div id="dialog" title="Whoops!" style="display: none;">
+		<p> An error has occured. Please ensure the locations entered are valid.</p>
+	 </div>
+	
+	 <!-- CORS Error Box -->	
+	<div id="dialog2" title="Whoops!" style="display: none;">
+		<p>An error has occured. Please install & turn on the CORS Chrome Extension, then refresh your page. </p>
+	</div>
+
+	<!-- Header -->
+	<div class="jumbotron jumbotron-fluid" id="header">
+  		<div class="container">
+    		<h1 class="display-4" id="title">Is It Worth It?</h1>
+    		<p class="lead">Find out if it's worth driving, flying or something in between!</p>
+  		</div>
+    
+  		<!--Key for Icons-->
+      <div class="col-12" id="keys">
+        <div id="keys">
+          <i class="fas fa-leaf" id="leafkey"></i>
+            <p id="leafdisc"> CO2 Friendly</p>
+          
+          <i class="fas fa-clock" id="timekey"></i>
+            <p id="timedisc"> Time Saver</p>
+          
+          <i class="fas fa-dollar-sign" id="moneykey"></i>
+            <p id="dollardisc">Cheapest Option</p> 
+        </div>
+  		</div>
+	</div>
 
 		<!--Start of main body HTML-->
 	<div class="container">
@@ -123,71 +133,72 @@
 				<!--Space Filler-->
 				<div class="col-10"></div>
 
-				<!--This is where users will see their information-->
-				<div class="card" id="infodump">
-					<h5 class="card-header">Find Information On Your Trip</h5>
-					<div class="card-body">
-						<h5 id="infoheader">Based on your info:</h5>
-						<p id="distanceInfo"></p>
-	          			<p id="passCount"></p>
+			<!--This is where users will see their information-->
+			<div class="card" id="infodump">
+				<h5 class="card-header">Find Information On Your Trip</h5>
+				<div class="card-body">
+					<h5 id="infoheader">Based on your info:</h5>
+					<p><span id="distanceInfo"></span>
+          			<span id="passCount"></span></p>
 
-						<div class "panel panel-secondary" id="travelInfo">
-							<div class="panel-body">
-								<table class="table table-hover">
-									<tr>
-										<td></td>
-										<th scope="col">Trip Duration</th>
-										<th scope="col">Fuel/Fare cost</th>
-										<th scope="col">Total Cost</th>
-										<th scope="col">Carbon Impact</th>
-										<th scope="col"></th>
-									</tr>
-									<tr>
-										<th scope="row">Driving</th>
-										<td class="result" id="drivetime"></td>
-										<td class="result" id="carGasCost"></td>
-										<td class="result" id="drivecost"></td>
-										<td class="result" id="driveEco"></td>
-										<td id="drivingKey"></td>
-										<td id="carmoneykey"></td>
-										<td id="cartimekey"></td>
-									</tr>
-									<tr>
-										<th scope="row">Flying</th>
-										<td class="result" id="flytime"></td>
-										<td class="result" id="flyfare"></td>
-										<td class="result" id="flycost"></td>
-										<td class="result" id="flyEco"></td>
-										<td id="flyingkey"></td>
-										<td id="flymoneykey"></td>
-										<td id="flytimekey"></td>
-									</tr>
-									<tr>
-										<th scope="row">Using Transit</th>
-										<td class="result" id="transit-time"></td>
-	              						<td class="result" id="transit-fare"></td>
-										<td class="result" id="transit-cost"></td>
-										<td class="result" id="transit-Eco"></td>
-										<td id="transitkey"></td>
-										<td id="transitmoneykey"></td>
-										<td id="transittimekey"></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td>per person</td>
-										<td>assumes $25/hour</td>
-										<td>lbs CO2/ person</td>
-									</tr>
-								</table>
-							</div>
+					<div class="panel panel-secondary" id="travelInfo">
+						<div class="panel-body">
+							<table class="table table-hover">
+								<tr>
+									<td></td>
+									<th scope="col">Trip Duration</th>
+									<th scope="col">Fuel/Fare cost</th>
+									<th scope="col">Total Cost</th>
+									<th scope="col">Carbon Impact</th>
+									<th scope="col"></th>
+								</tr>
+								<tr>
+									<th scope="row">Driving</th>
+									<td class="result" id="drivetime"></td>
+									<td class="result" id="carGasCost"></td>
+									<td class="result" id="drivecost"></td>
+									<td class="result" id="driveEco"></td>
+									<td id="drivingKey"></td>
+									<td id="carmoneykey"></td>
+									<td id="cartimekey"></td>
+								</tr>
+								<tr>
+									<th scope="row">Flying</th>
+									<td class="result" id="flytime"></td>
+									<td class="result" id="flyfare"></td>
+									<td class="result" id="flycost"></td>
+									<td class="result" id="flyEco"></td>
+									<td id="flyingkey"></td>
+									<td id="flymoneykey"></td>
+									<td id="flytimekey"></td>
+								</tr>
+								<tr>
+									<th scope="row">Using Transit</th>
+									<td class="result" id="transit-time"></td>
+              						<td class="result" id="transit-fare"></td>
+									<td class="result" id="transit-cost"></td>
+									<td class="result" id="transit-Eco"></td>
+									<td id="transitkey"></td>
+									<td id="transitmoneykey"></td>
+									<td id="transittimekey"></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>per person</td>
+									<td>assumes $25/hour</td>
+									<td>lbs CO2/ person</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
+	<br/><br/>
+<!--General Javascript Link-->
+<script src="assets/javascript/app.js"></script>
 
 	<!--General Javascript Link-->
 	<script src="assets/javascript/app.js"></script>
