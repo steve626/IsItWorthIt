@@ -32,16 +32,16 @@ body {
 }
 
 .card {
-	float: left;
-	
+  float: left;
+  margin-left: 30px;	
 	margin-top: 20px;
 }
 
 #infoinput {
-	width: 510px;
+	width: 480px;
 }
 #infodump {
-  width: 510px;
+  width: 500px;
 }
 
 table {
