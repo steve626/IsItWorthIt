@@ -231,7 +231,7 @@ $.ajax({
 
         function flyFare(x) {
          console.log(x.route.distance);
-         flyFare = Math.round(((parseInt(x.route.distance) * 0.11) + 50)*passengerCount);
+         flyFare = Math.round((parseInt(x.route.distance) * 0.11) + 50);
          console.log("Avg Fare: $"+ flyFare);
          $("#flyfare").html("<b>$" + flyFare + "</b>"); 
         };
