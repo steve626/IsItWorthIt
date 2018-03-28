@@ -139,55 +139,58 @@
 					<p><span id="distanceInfo"></span>
           			<span id="passCount"></span></p>
 
-					<div class="panel panel-secondary" id="travelInfo">
-						<div class="panel-body">
-							<table class="table table-hover">
-								<tr>
-									<td></td>
-									<th scope="col">Trip Duration</th>
-									<th scope="col">Fuel/Fare cost</th>
-									<th scope="col">Total Cost</th>
-									<th scope="col">Carbon Impact</th>
-									<th scope="col"></th>
-								</tr>
-								<tr>
-									<th scope="row">Driving</th>
-									<td class="result" id="drivetime"></td>
-									<td class="result" id="carGasCost"></td>
-									<td class="result" id="drivecost"></td>
-									<td class="result" id="driveEco"></td>
-									<td id="drivingKey"></td>
-									<td id="carmoneykey"></td>
-									<td id="cartimekey"></td>
-								</tr>
-								<tr>
-									<th scope="row">Flying*</th>
-									<td class="result" id="flytime"></td>
-									<td class="result" id="flyfare"></td>
-									<td class="result" id="flycost"></td>
-									<td class="result" id="flyEco"></td>
-									<td id="flyingkey"></td>
-									<td id="flymoneykey"></td>
-									<td id="flytimekey"></td>
-								</tr>
-								<tr>
-									<th scope="row">Using Transit</th>
-									<td class="result" id="transit-time"></td>
-              						<td class="result" id="transit-fare"></td>
-									<td class="result" id="transit-cost"></td>
-									<td class="result" id="transit-Eco"></td>
-									<td id="transitkey"></td>
-									<td id="transitmoneykey"></td>
-									<td id="transittimekey"></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>*fly time +3hrs</td>
-									<td>per person</td>
-									<td>assumes $25/hour</td>
-									<td>lbs CO2/ person</td>
-								</tr>
+					<div class="table-responsive">
+							<table class="table" id="travelTable">
+  								<thead>
+    								<tr>
+      									<th scope="col"></th>
+      									<th scope="col">Trip Duration</th>
+      									<th scope="col">Fuel/Fare cost</th>
+      									<th scope="col">Total Cost</th>
+      									<th scope="row">Carbon Impact</th>
+    								</tr>
+  								</thead>
+  								<tbody>
+    								<tr>
+      									<th scope="row">Driving</th>
+      									<td class="result" id="drivetime"></td>
+      									<td class="result" id="carGasCost"></td>
+      									<td class="result" id="drivecost"></td>
+      									<td class="result" id="driveEco"></td>
+      									<td id="drivingKey"></td>
+      									<td id="carmoneykey"></td>
+      									<td id="cartimekey"></td>
+    								</tr>
+    								<tr>
+      									<th scope="row">Flying</th>
+      									<td class="result" id="flytime"></td>
+      									<td class="result" id="flyfare"></td>
+      									<td class="result" id="flycost"></td>
+      									<td class="result" id="flyEco"></td>
+      									<td id="flyingkey"></td>
+      									<td id="flymoneykey"></td>
+      									<td id="flytimekey"></td>
+    								</tr>
+    								<tr>
+      									<th scope="row">Using Transit</th>
+      									<td class="result" id="transit-time"></td>
+      									<td class="result" id="transit-fare"></td>
+      									<td class="result" id="transit-cost"></td>
+      									<td class="result" id="transit-Eco"></td>
+      									<td id="transitkey"></td>
+      									<td id="transitmoneykey"></td>
+      									<td id="transittimekey"></td>
+    								</tr>
+    								<tr>
+      									<th scope="row"></th>
+      									<td></td>
+      									<td>per person</td>
+      									<td>assumes $25/hour</td>
+      									<td>lbs CO2/ person</td>
+    								</tr>
+  								</tbody>
 							</table>
+						</div>
 						</div>
 						<!-- <div id="drivingInfo">
 							<h4>If you drive: <div id="drivingKey"></div><div id="carmoneykey"></div><div id="cartimekey"></div></h4>
