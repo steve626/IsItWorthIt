@@ -27,21 +27,29 @@ body {
     }
 }
 
+@media only screen and (max-width: 667px) {
+    /* For mobile phones: */
+    #header {
+      height: 350px;
+    }
+    
+
+}
+
 #title {
 	margin-top: -25px;
 }
 
 .card {
-  float: left;
-  margin-left: 30px;	
-	margin-top: 20px;
+  float: left;	
+  margin-top: 20px;
 }
 
 #infoinput {
-	width: 480px;
+	width: 510px;
 }
 #infodump {
-  width: 500px;
+  width: 510px;
 }
 
 table {
