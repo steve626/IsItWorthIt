@@ -95,7 +95,7 @@
     } 
   });
 
-  //Functions for passangers information
+  //Functions for passengers information
   function increaseValue() {
     var value = parseInt(document.getElementById('number').value, 10);
     value = isNaN(value) ? 1 : value;
@@ -116,7 +116,7 @@
 // MAIN SUBMIT BUTTON CLICK - GUTS OF THE APP
   $("#submit").on("click", function() {
 
-  //Pull Form Info into Varables, Console Log & Clear Inputs
+  //Pull Form Info into Variables, Console Log & Clear Inputs
   var origin = $("#location").val().trim();
   var destination = $("#destination").val().trim(); 
   var passengers = $("#number"); 
@@ -126,13 +126,7 @@
   passengerCount = passengers[0].valueAsNumber;
   console.log("Passenger Count: "+passengerCount);
   console.log(carType);
-  $("#location").val("");
-  $("#destination").val("");
-  $("#number").val(1); 
-  $("#sel1").val("Compact");
-  $("#drivingKey").html("");
-  $("#flyingkey").html("");
-  $("#transitkey").html("");
+  
 
 
 //Google Directions API (Use for Transit Info & Confirm Valid Locations)
@@ -324,4 +318,15 @@ $.ajax({
   });
    
 }); // End of Submit Click Function
+
+//page reset 
+$("#resetBtn").on("click", function() {
+  $("#location").val("");
+  $("#destination").val("");
+  $("#number").val(1); 
+  $("#sel1").val("Compact");
+  $("#drivingKey").html("");
+  $("#flyingkey").html("");
+  $("#transitkey").html("");
+});
 
