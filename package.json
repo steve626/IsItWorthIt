@@ -1,0 +1,29 @@
+{
+  "name": "isitworthit",
+  "version": "1.0.0",
+  "description": "travel planning app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvaH98/IsItWorthIt.git"
+  },
+  "keywords": [
+    "travel",
+    "cost",
+    "plan"
+  ],
+  "author": "Eva, Brittany, Steve",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EvaH98/IsItWorthIt/issues"
+  },
+  "homepage": "https://github.com/EvaH98/IsItWorthIt#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "request": "^2.87.0"
+  }
+}
